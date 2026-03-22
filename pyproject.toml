@@ -3,7 +3,7 @@ requires = ["setuptools>=65", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "flu"
+name = "flu-math"
 version = "15.3.0"
 authors = [
     {name = "Felix Mönnich"},
