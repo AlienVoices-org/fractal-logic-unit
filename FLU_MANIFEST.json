@@ -5,7 +5,7 @@
   "version": "15.3.0",
   "last_updated": "2026-03-20",
   "package": {
-    "name": "FLU-math",
+    "name": "flu-math",
     "full_name": "Fractal Logic Unit — Phased Fractal Number Theory",
     "version": "15.3.0",
     "language": "Python 3.10+",
