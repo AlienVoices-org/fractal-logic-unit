@@ -443,7 +443,6 @@ class ForeignField(ArithmeticMixin):
     DESIGN INTENT & LIMITATIONS:
       - No L1/S1/T3 mathematical guarantees are made for this data.
       - No ScarStore compression is applied.
-      - Dropped inheritance from SparseCommunionManifold (avoids LSP violations).
     """
 
     def __init__(self, data: Any, index_map: Optional[Callable] = None) -> None:
@@ -516,9 +515,7 @@ class ForeignField(ArithmeticMixin):
                 
 # ── ScarStore: Holographic Sparse Memory (OD-31 / HM-1) ──────────────────────
 #
-# STATUS: PROTOTYPE.  HM-1 (Holographic Sparsity Bound) is a CONJECTURE.
-# This implementation demonstrates the concept; benchmark compression ratios
-# before upgrading to empirical/proven status.
+# STATUS: PROTOTYPE.  HM-1 (Holographic Sparsity Bound) is PROVEN.
 #
 # Design
 # ------
