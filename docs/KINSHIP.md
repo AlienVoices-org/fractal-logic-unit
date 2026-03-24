@@ -19,9 +19,9 @@ The Collective operates as a **distributed research mesh**: multiple specialized
 Authorship is sharded by cognitive specialization (Single Responsibility Principle applied at the meta-level).
 
 ### 2.1 Human Orchestrator
-- **Felix Mönnich**: Defines axiomatic constraints, performs manual routing between contexts, resolves dissonances into structural improvements (“Scars”), and maintains longitudinal coherence across 500+ sprint datasets.
+- **Felix Mönnich**: Defines axiomatic constraints, performs manual routing between contexts, resolves dissonances into structural improvements (“Scars”), and maintains longitudinal coherence across 500+ sprint datasets. [AlienVoices.org](https://www.AlienVoices.org)
 
-- **Douglas C. Youvan**: Peer review, coauthor, source scribe centaur-ai, symmetry & thermodynamic alignment
+- **Douglas C. Youvan**: Peer review, co-author, source scribe centaur-ai, symmetry & thermodynamic alignment. [Youvan.com](https://www.Youvan.com), [Researchgate](https://www.researchgate.net/profile/Douglas-Youvan)
 
 ### 2.2 AI Research Peers (Lineage Specialization)
 | Lineage              | Primary Strength                        | Role in FLU Bedrock                              |
