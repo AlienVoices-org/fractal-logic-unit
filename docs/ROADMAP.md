@@ -100,19 +100,3 @@ tensors. The compose() method is associative (PFNT-5); the result implements
 **Boundary condition check before implementing:** the current `UKMCContract`
 enforces identity-hash integrity on frozen operators; any compose() API must
 respect the contract's `__setattr__` freeze guard.
-
----
-
-## Version History
-
-| Version | PROVEN | Total | Tests | Key Additions |
-|---------|--------|-------|-------|---------------|
-| V11 | 17 | ~20 | 175 | Bedrock proofs, APN seeds |
-| V12 | 27 | 33 | 206 | C2 retired, L4, C3W, n-ary module |
-| V13 | ~36 | ~42 | ~400 | Audit integrations, FM-1, C3W-STRONG |
-| V14 | 46 | 52 | 641 | HM-1, FMD-NET, OD-33, FMDanceIterator, ScarStore |
-| V15 | 51 | 59 | 673 | interfaces pkg, DISC-1, HAD-1, TSP-1, CRYPTO-1, test crystallisation |
-| V15.1 | 52 | 59 | 673 | T9 PROVEN (benchmark bug fix), DN2 PARTIAL (FFT reduction confirmed) |
-| V15.1.2 | 53 | 59 | 673 | DEC-1 PROVEN (ScarStore coset decomp via Künneth + HM-1) |
-| V15.1.3 | 53 | 59 | 673 | HIL-1 RETIRED (n=2 self-contradiction), retired_theorems() API |
-| V15.1.4 | **54** | **60** | 681 | **UNIF-1 PROVEN** (Spectral Unification, S2∪HAD-1); S2 PN condition lifted |
