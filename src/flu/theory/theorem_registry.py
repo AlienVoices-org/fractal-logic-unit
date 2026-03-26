@@ -1,7 +1,7 @@
 """
 flu/theory/theorem_registry.py
 ================================
-Central Theorem Registry — V14.
+Central Theorem Registry — V15.
 
 Single point of truth for all proven theorems, open conjectures, and
 design-intent claims across the FLU framework.
@@ -41,6 +41,9 @@ from flu.theory.theory_fm_dance import (
     C2_SCOPED_PROVEN,
     # V14: new conjectures
     DN1_DIGITAL_NET,
+    DN1_GL_GRAECO_LATIN,
+    DN1_OA_STRENGTH4,
+    OD19_LINEAR,
     DELTA_MIN_19,
     DELTA_MIN_31,
     # V14 audit integrations
@@ -576,7 +579,10 @@ def _build_registry() -> Dict[str, TheoremRecord]:
     reg["C2-SCOPED"]   = C2_SCOPED_PROVEN
 
     # V14 conjectures (open)
-    reg["DN1"]         = DN1_DIGITAL_NET
+    reg["DN1"]         = DN1_DIGITAL_NET         # PROVEN V15.3+
+    reg["DN1-GL"]      = DN1_GL_GRAECO_LATIN     # PROVEN V15.3+
+    reg["DN1-OA"]      = DN1_OA_STRENGTH4        # PROVEN V15.3+
+    reg["OD-19-LINEAR"] = OD19_LINEAR            # PROVEN V15.3+
     reg["OD-16"]       = DELTA_MIN_19
     reg["OD-17"]       = DELTA_MIN_31
 
@@ -742,6 +748,13 @@ _PROOF_STATUS_MAP: Dict[str, str] = {
     "DN2-WALSH":   "algebraic_and_computational",   # Walsh-native, same constant, frequency-decaying
     "DN2-VAR":     "algebraic_and_computational",   # Owen-class variance, gain independent of smoothness
     "DN2-ANOVA":   "algebraic_and_computational",   # ANOVA suppression, effective dimension reduction
+
+    # V15.3+ — DN1 proven, new sub-theorems, OD-19-LINEAR closed
+    "DN1":          "algebraic_and_computational",  # PROVEN: Graeco-Latin + OA(81,4,3,4) + recursive
+    "DN1-GL":       "algebraic_and_computational",  # PROVEN: generation formulas + 0-mismatch verification
+    "DN1-OA":       "algebraic_and_computational",  # PROVEN: OA strength-4 certificate (17 tests)
+    "OD-19-LINEAR": "algebraic_and_computational",  # PROVEN: linear-digit uniqueness, 7-step proof
+    "T8b":          "algebraic_and_computational",  # updated: OD-19 open part now closed by OD-19-LINEAR
 }
 
 # Apply in-place — replace entries with proof_status set in the map,
