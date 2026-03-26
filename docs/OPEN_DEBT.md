@@ -33,7 +33,7 @@
 | ID | Claim | Closed in | How |
 |----|-------|-----------|-----|
 | ✅ DN1 | LoShu Sudoku Digital Net | **V15.3.1** | lo_shu_sudoku.py |
-| ✅ OD-19 | OD-19-LINEAR — Linear Magic Hyperprism Uniqueness — full proof | **V15.3** | PROOF_OD19_LINEAR.md |
+| ✅ OD-19 | OD-19-LINEAR — Linear Magic Hyperprism Uniqueness | **V15.3** | PROOF_OD19_LINEAR.md |
 | ✅ DN2 | APN-Scrambled Digital Net | **V15.3** | ETK + Walsh + Variance + ANOVA |
 | ✅ DN2-ETK | Discrepancy constant C_APN(D) = C_classic·(B/√n)^D | **V15.3** | ETK inequality + H-balancing |
 | ✅ DN2-WALSH | Walsh-native discrepancy bound via digit-weight decay | **V15.3** | Walsh |ŵ(k)| ≤ (B/√n)^{μ(k)} |
