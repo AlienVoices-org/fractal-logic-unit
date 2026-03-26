@@ -1,5 +1,5 @@
 """
-tests/test_lo_shu_sudoku.py
+tests/test_core/test_lo_shu_sudoku.py
 ===========================
 Tests for the Lo Shu Sudoku 3^4 Hypercell and DN1 partial resolution.
 All tests run without pytest; compatible with run_tests.py.
