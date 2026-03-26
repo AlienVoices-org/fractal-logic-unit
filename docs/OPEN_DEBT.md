@@ -1,6 +1,6 @@
 # FLU — Open Debt Registry
 
-**Status as of V15.3 (2026-03-20). DN2 PROVEN (all sub-parts closed). Registry: 65 PROVEN · 70 total · 3 open.**
+**Status as of V15.3.1 (2026-03-26). DN1 PROVEN. Registry: 69 PROVEN · 73 total · 2 open.**
 
 ---
 
@@ -18,20 +18,22 @@
 
 | ID | Name | Status |
 |----|------|--------|
+| DOC-1 | Eternal documentation debt (Closure forbidden). Update README's, PAPER.md & THEOREMS.md etc. | 🟡 PARTIAL |
 | OD-16 | Delta-Min Conjecture Z_19 (all bijections) | 🔴 OPEN |
 | OD-17 | Delta-Min Conjecture Z_31 (all bijections) | 🔴 OPEN |
 | OD-34 | Kinship Curve — Hamiltonian continuity under RotationHub | 🔴 OPEN |
 | OD-35 | Distributive Law: (M₁⊕M₂)⊗M₃ = (M₁⊗M₃)⊕(M₂⊗M₃) | 🔵 RESEARCH |
 | OD-36 | APN Asymptotics: sparsity of APN bijections as n→∞ | 🔵 RESEARCH |
 | OPER-3 | Sparse Forward Differences — O(D) derivative operator on manifolds | 🟡 PARTIAL |
-| DOC-1 | PAPER.md: Section 3 theorem tables missing V15.3 additions | 🟡 PARTIAL |
 
 ---
 
-## Recently Closed (V15.2–V15.3)
+## Recently Closed (V15.2–V15.3.1)
 
 | ID | Claim | Closed in | How |
 |----|-------|-----------|-----|
+| ✅ OD-19 | OD-19-LINEAR — Linear Magic Hyperprism Uniqueness — full proof | **V15.3** | PROOF_OD19_LINEAR.md |
+| ✅ DN1 | LoShu Sudoku Digital Net — full proof | **V15.3** | lo_shu_sudoku.py |
 | ✅ DN2 | APN-Scrambled Digital Net — full proof | **V15.3** | ETK + Walsh + Variance + ANOVA |
 | ✅ DN2-ETK | Discrepancy constant C_APN(D) = C_classic·(B/√n)^D | **V15.3** | ETK inequality + H-balancing |
 | ✅ DN2-WALSH | Walsh-native discrepancy bound via digit-weight decay | **V15.3** | Walsh |ŵ(k)| ≤ (B/√n)^{μ(k)} |
@@ -96,21 +98,6 @@ the exit coordinate of block B_k matches the entry of B_{k+1}.
 
 ---
 
-### DN1 — Lo Shu Fractal Digital Net Conjecture
-
-**Status:** 🔵 CONJECTURE (registered, not a V16 blocker)
-
-**Statement:** The recursive Lo Shu fractal embedding f_k: Z_3^{2k} → [0,1)^{2k} forms
-a (t,2k,2k)-net in base 3 with t ≤ t_0 for some constant t_0 independent of k.
-
-**Note:** OD-27 (PROVEN) handles the general FractalNetKinetic case. DN1 is the
-specific Lo Shu fractal variant, where digit propagation across Lo Shu blocks is the
-key open difficulty.
-
-**Closure path:** Niederreiter digital net theory; Faure/Pascal angle on the T matrix.
-
----
-
 ## 3. Arithmetic & Calculus
 
 ### OPER-3 — Sparse Forward Differences (The Derivative)
@@ -161,9 +148,15 @@ connection to Pascal mod n is the gap.
 
 ## 5. Documentation Debt
 
-### DOC-1 — PAPER.md: Section 3 theorem tables incomplete
+### DOC-1 — PAPER.md / THEOREMS.md : Theorem tables may be incomplete compared to source registry
 
 **Status:** 🟡 PARTIAL
+
+The debt DOC-1 can never be completed. It is eternal task to prevent documentation drift and improve it. 
+Specific Issues can be added here:
+
+| V15.3.1 | DN1 | LoShu Sudoku Digital Net (PROVEN) (lo_shu_sudoku.py)
+| V15.3+ | OD-19 T8b | Linear Magic Hyperprism Uniqueness (PROVEN)(SCOPED) (PROOF_OD19_Linear.md)
 
 Section 3 theorem tables (3.1–3.7) were not updated to include V15.2/V15.3 additions.
 Missing from the tables: DN2 (now PROVEN), DN2-ETK, DN2-WALSH, DN2-VAR, DN2-ANOVA,
@@ -178,7 +171,8 @@ update §4.6 (FractalNet) with Owen scrambling results and DN2 proof summary.
 
 | Batch | Closed / Retired | Resolution |
 |-------|------------------|------------|
-| V15.3+ | OD-19 T8b | Linear Magic Hyperprism Uniqueness (SCOPED) (PROOF_OD19_Linear.md)
+| V15.3.1 | DN1 | LoShu Sudoku Digital Net (PROVEN) (lo_shu_sudoku.py)
+| V15.3+ | OD-19 T8b | Linear Magic Hyperprism Uniqueness (PROVEN)(SCOPED) (PROOF_OD19_Linear.md)
 | V15.3 | DN2, DN2-ETK, DN2-WALSH, DN2-VAR, DN2-ANOVA | DN2 fully proven: ETK+Walsh discrepancy, Owen-class variance, ANOVA suppression. |
 | V15.2+ | EVEN-1 | Even-n Latin Hyperprism via Kronecker Decomposition. |
 | V15.2 | OD-27 | FractalNetKinetic t-value proven t=m(D-1), not t=0. |
