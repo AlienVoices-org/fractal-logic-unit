@@ -471,11 +471,11 @@ class TestTheoremRegistry(unittest.TestCase):
                          f"Expected >= 30 proven theorems in V12, got {count}")
 
     def test_open_conjecture_count(self):
-        """Registry must contain exactly 3 open items after V15.3 (DN2 now PROVEN).
-        V15.3: DN2 PROVEN; remaining open: DN1, OD-16, OD-17."""
+        """Registry must contain exactly 2 open items after V15.3.1 (DN1 now PROVEN).
+        V15.3.1: DN1 PROVEN; remaining open: OD-16, OD-17."""
         count = len(open_conjectures())
-        self.assertEqual(count, 3,
-                         f"Expected 3 open items (CONJECTURE) after V15.3, got {count}")
+        self.assertEqual(count, 2,
+                         f"Expected 2 open items (CONJECTURE) after V15.3.1, got {count}")
 
     def test_all_fm_dance_theorems_present(self):
         """All 6 FM-Dance theorems T1–T6 must be in registry and PROVEN."""
