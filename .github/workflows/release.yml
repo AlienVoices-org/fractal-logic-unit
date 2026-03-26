@@ -1,0 +1,96 @@
+name: Release & Registry Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version (e.g., v15.3.1)'
+        required: true
+        type: string
+      update_manifest:
+        description: 'Update FLU_MANIFEST.json'
+        required: true
+        type: boolean
+        default: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy
+      
+      - name: Regenerate THEOREM_REGISTRY.json
+        run: |
+          python tools/generate_registry_json.py --verbose
+      
+      - name: Update FLU_MANIFEST.json
+        if: github.event.inputs.update_manifest == 'true'
+        run: |
+          python -c "
+          import json
+          from datetime import datetime
+          
+          # Load manifest
+          with open('FLU_MANIFEST.json', 'r') as f:
+              manifest = json.load(f)
+          
+          # Load registry
+          with open('src/flu/theory/THEOREM_REGISTRY.json', 'r') as f:
+              registry = json.load(f)
+          
+          # Update
+          manifest['version'] = '${{ github.event.inputs.release_version }}'
+          manifest['released_at'] = datetime.utcnow().isoformat() + 'Z'
+          manifest['generated'] = registry['generated']
+          if 'summary' in registry:
+              manifest['theorem_summary'] = registry['summary']
+          
+          with open('FLU_MANIFEST.json', 'w') as f:
+              json.dump(manifest, f, indent=2)
+          
+          print('✓ Updated FLU_MANIFEST.json')
+          "
+      
+      - name: Commit changes
+        run: |
+          git config user.email "ci@github.com"
+          git config user.name "GitHub Actions Bot"
+          git add src/flu/theory/THEOREM_REGISTRY.json FLU_MANIFEST.json
+          git commit -m "release: ${{ github.event.inputs.release_version }}
+
+          - Update THEOREM_REGISTRY.json from live registry
+          - Update FLU_MANIFEST.json metadata
+          
+          [skip ci]" || echo "No changes to commit"
+          git push origin main
+      
+      - name: Create release notes
+        run: |
+          cat > /tmp/release_notes.md << 'EOF'
+          # Release ${{ github.event.inputs.release_version }}
+          
+          **Generated:** $(date -u +%Y-%m-%dT%H:%M:%SZ)
+          
+          ## Changes
+          - Updated THEOREM_REGISTRY.json with latest theorems
+          - Updated FLU_MANIFEST.json metadata
+          
+          ## Test Status
+          See workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EOF
+          cat /tmp/release_notes.md
