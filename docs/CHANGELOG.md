@@ -4,6 +4,14 @@ All notable changes to the FLU library are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
+[15.3] — 2026-03-26 — OD-19-LINEAR — Linear Magic Hyperprism Uniqueness: Complete Proof
+Theorem ID: OD-19-LINEAR
+Status: ✅ PROVEN (characterisation + FM-Dance orbit isolation, Steps 1–7)
+Proof type: algebraic_and_computational
+Depends on: T1, T3, T8b, PFNT-3, BPT
+Authors: Felix Mönnich & The Kinship Mesh Collective
+Version: V15.3+ (2026-03-21)
+Verification: exhaustive enumeration, n ∈ {3,5,7,11,13}, D ∈ {1,2,3} / See [PROOF_OD19_LINEAR.md](PROOF_OD19_LINEAR.md)
 
 ## [15.2.2] — 2026-03-20 — DN2 Complete Proof + FLU-Owen Scrambling
 
