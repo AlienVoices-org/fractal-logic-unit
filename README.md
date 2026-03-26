@@ -197,14 +197,7 @@ Current state (V15.0.0):
 | OD-3  | BigInt overhead d > 256 | 🟡 PARTIAL |
 | OD-5  | APN seeds n=19, 31 | 🔴 OPEN |
 | OD-16 | δ_min Z_19 (all bijections) | 🔴 OPEN |
-| OD-16-PM | δ_min Z_19 (power maps only) | 🟢 PROVEN |
 | OD-17 | δ_min Z_31 (all bijections) | 🔴 OPEN |
-| OD-17-PM | δ_min Z_31 (power maps only) | 🟢 PROVEN |
-| OD-19 | T8b uniqueness conjecture | 🟢 PROVEN / SCOPED (V15.3) |
-| OD-27 | FractalNet digital net classification | 🟢 PROVEN (V15.2) |
-| HIL-1 | Hilbert facet locality conjecture | ⚫ RETIRED (V15.1.3) |
-| DN2   | APN-Scrambled Digital Net (all sub-parts) | 🟢 PROVEN (V15.3) |
-| DEC-1 | ScarStore = coset decomposition | 🟢 PROVEN (V15.1.2) |
 
 Full detail: `docs/OPEN_DEBT.md`
 
