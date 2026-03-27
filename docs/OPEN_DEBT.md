@@ -1,6 +1,6 @@
 # FLU — Open Debt Registry
 
-**Status as of V15.3.1 (2026-03-26). DN1 PROVEN. Registry: 69 PROVEN · 73 total · 2 open.**
+**Status as of V15.3.2 (2026-03-28). DN1 PROVEN. Registry: 69 PROVEN · 73 total · 2 open.**
 
 ---
 
@@ -156,7 +156,7 @@ Subsumes T9 (M=T), FMD-NET (M=I), DN2 (σ=APN), Faure (M=P^m).
 
 ### NEW-3 — Min-entropy Hamiltonian Latin Uniqueness (OD-19 corollary)
 
-**Status:** 🔵 RESEARCH. T4 PROVEN; uniqueness waits on OD-19 (OPEN).
+**Status:** ✅ CLOSED (within linear-digit scope). OD-19-LINEAR PROVEN V15.3+; Corollary 3 of PROOF_OD19_LINEAR.md closes NEW-3 for linear-digit bijections. Full generality (all Gray-1 Ham. paths) remains RESEARCH.
 
 ### NEW-4 — Modular Pascal Fractal Dimension
 
