@@ -89,9 +89,10 @@ from flu.core.factoradic       import (
     unrank_optimal_seed, GOLDEN_SEEDS,
 )
 from flu.core.lo_shu           import LoShuHyperCell, Perspective, CellStrata
+from flu.core.lo_shu_sudoku    import LoShuSudokuHyperCell, make_hypercell as make_sudoku_hypercell
 from flu.core.even_n           import generate as even_n_generate, verify as even_n_verify
 from flu.core.hypercell        import FLUHyperCell
-from flu.core.fractal_3_6      import FractalHyperCell_3_6, CellPair, MicroCell
+from flu.core.fractal_3_6      import FractalHyperCell_3_6, CellPair, MicroCell, SudokuMacroAdapter
 from flu.core.parity_switcher  import generate, generate_metadata, verify_latin
 from flu.container.contract    import UKMCContract
 from flu.container.manifold    import cell_to_sparse_coords, sparse_coords_to_norm0, verify_seam
