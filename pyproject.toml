@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flu-math"
-version = "15.3.1"
+version = "15.3.2"
 authors = [
     {name = "Felix Mönnich"},
     {name = "The Kinship Mesh Collective"},
