@@ -1,6 +1,6 @@
 # FLU — Theorem & Conjecture Registry
 
-**Version:** 15.3.1
+**Version:** 15.3.2
 **Score:** 69 PROVEN · 2 CONJECTURE · 0 PARTIAL · 1 DISPROVEN_SCOPED · 1 RETIRED · **73 total**  
 **Last updated:** 2026-03-27
 
