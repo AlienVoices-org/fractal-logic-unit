@@ -303,7 +303,7 @@
       "GrayCodeFacet": "n-ary Gray code generator (T8 PROVEN).",
       "InvarianceFacet": "Branch isomorphism. .compare_branches(), .check_t3(M), .check_l1(M)",
       "HilbertFacet": "[RETIRED] Hilbert-tuned traversal. .get_point(k), .locality_score()",
-      "CohomologyFacet": "[CONJECTURE] DEC operators. .coboundary(M), .circulation(scars, loop)"
+      "CohomologyFacet": "DEC operators. .coboundary(M), .circulation(scars, loop) (DEC-1 PROVEN)"
     },
     "qmc": {
       "FractalNet(n, d)": "OD-27 quasi-Monte Carlo digital net via FM-Dance radical inverse. (T9, DN2 PROVEN)",
