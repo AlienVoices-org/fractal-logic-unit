@@ -306,12 +306,12 @@
       "CohomologyFacet": "[CONJECTURE] DEC operators. .coboundary(M), .circulation(scars, loop)"
     },
     "qmc": {
-      "FractalNet(n, d)": "OD-27 quasi-Monte Carlo digital net via FM-Dance radical inverse. [T9, DN2-partial]",
+      "FractalNet(n, d)": "OD-27 quasi-Monte Carlo digital net via FM-Dance radical inverse. (T9, DN2 PROVEN)",
       "FractalNet.generate(num_points)": "Points in [0,1)^d with Latin balance at every power-of-n prefix.",
-      "FractalNet.generate_scrambled(num_points, seed_rank=0)": "APN digit-scrambled net (DN2 conjecture)."
+      "FractalNet.generate_scrambled(num_points, seed_rank=0)": "APN digit-scrambled net (DN2 PROVEN)."
     },
     "holographic": {
-      "ScarStore(n, d)": "Holographic sparse memory. [HM-1] PROVEN",
+      "ScarStore(n, d)": "Holographic sparse memory. (HM-1 PROVEN)",
       "SparseCommunionManifold(n, seeds)": "O(D)-memory infinite-scale oracle. [L2, L3]"
     },
     "seeds": {
@@ -356,7 +356,7 @@
     "latin_hypercubes_mckay_1979": "FLU generates deterministic Latin hypercubes where standard methods use random permutations.",
     "p_adic_odometer": "Time variable k evolves as an m-adic odometer; carry cascade is the p-adic valuation ν_n(k).",
     "cayley_graphs": "FM-Dance path is a Hamiltonian walk on Cay(Z_n^D, S) (CGW PROVEN).",
-    "digital_nets": "FractalNet (OD-27) is a quasi-Monte Carlo digital net (T9 CONJECTURE). Beats random by ~20% in L2-star discrepancy.",
+    "digital_nets": "FractalNet (OD-27) is a quasi-Monte Carlo digital net (T9 PROVEN). Beats random by ~20% in L2-star discrepancy.",
     "apn_permutations": "APN (Almost Perfect Nonlinear) permutations from cryptography used as optimal seeds.",
     "hasse_weil": "Algebraic curve argument (Hasse-Weil) proves APN power-map obstruction for p ≡ 1 mod 3 (OD-16-PM, OD-17-PM PROVEN)."
   },
