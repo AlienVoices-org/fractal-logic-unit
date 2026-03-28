@@ -1,8 +1,8 @@
 # FLU — Theorem & Conjecture Registry
 
 **Version:** 15.3.2
-**Score:** 69 PROVEN · 2 CONJECTURE · 0 PARTIAL · 1 DISPROVEN_SCOPED · 1 RETIRED · **73 total**  
-**Last updated:** 2026-03-27
+**Score:** 71 PROVEN · 2 CONJECTURE · 0 PARTIAL · 1 DISPROVEN_SCOPED · 1 RETIRED · **75 total**  
+**Last updated:** 2026-03-28
 
 This file is the single source of truth for the formal status of every mathematical
 claim in the FLU library.  Code and tests cross-reference entries here by ID.
