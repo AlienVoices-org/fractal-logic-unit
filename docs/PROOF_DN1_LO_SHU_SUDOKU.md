@@ -2,7 +2,7 @@
 
 **Document ID:** PROOF_DN1_LO_SHU_SUDOKU  
 **Theorem IDs:** DN1, DN1-GL, DN1-OA, DN1-GEN, DN1-REC  
-**Status:** ✅ PROVEN (V15.3.1, 2026-03-28)  
+**Status:** ✅ PROVEN (V15.3.2, 2026-03-28)  
 **Proof type:** algebraic\_and\_computational  
 **Authors:** Felix Mönnich & The Kinship Mesh Collective  
 **Depends on:** T1, T3, T5, PFNT-3, OD-19-LINEAR
