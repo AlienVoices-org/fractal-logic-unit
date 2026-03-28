@@ -19,6 +19,7 @@
 | ID | Name | Status |
 |----|------|--------|
 | DOC-1 | Eternal documentation debt (Closure forbidden). Update README's, PAPER.md & THEOREMS.md etc. | 🟡 PARTIAL |
+| DN1-GEN | DN1 Generalization has brought up 2 new sub-theorems DN1-GEN and DN1-REC, see PROOF_DN1*| 🔴 OPEN |
 | OD-16 | Delta-Min Conjecture Z_19 (all bijections) | 🔴 OPEN |
 | OD-17 | Delta-Min Conjecture Z_31 (all bijections) | 🔴 OPEN |
 | OD-34 | Kinship Curve — Hamiltonian continuity under RotationHub | 🔴 OPEN |
@@ -32,7 +33,7 @@
 
 | ID | Claim | Closed in | How |
 |----|-------|-----------|-----|
-| ✅ DN1 | LoShu Sudoku Digital Net | **V15.3.1** | lo_shu_sudoku.py |
+| ✅ DN1 | LoShu Sudoku Digital Net | **V15.3.1** | lo_shu_sudoku.py, PROOF_DN1_LO_SHU_SUDOKU.md |
 | ✅ OD-19 | OD-19-LINEAR — Linear Magic Hyperprism Uniqueness | **V15.3** | PROOF_OD19_LINEAR.md |
 | ✅ DN2 | APN-Scrambled Digital Net | **V15.3** | ETK + Walsh + Variance + ANOVA |
 | ✅ DN2-ETK | Discrepancy constant C_APN(D) = C_classic·(B/√n)^D | **V15.3** | ETK inequality + H-balancing |
@@ -58,7 +59,18 @@ Specific Issues can be added here:
 
 ---
 
-## 2. Mathematical Debt
+## 2. Theorem Registry Integration Debt
+
+### DN1-GEN - DN1 Generalization
+
+**Status:** 🔴 OPEN
+
+DN1 Generalization as brought up 2 new sub-theorems DN1-GEN and DN1-REC, both are present in PROOF_DN1_LO_SHU_SUDOKU.md and THEOREMS.md, but must still be integrated into the python registry.
+
+---
+
+
+## 3. Mathematical Debt
 
 ### OD-16 — Delta-Min Conjecture for Z_19
 
@@ -109,7 +121,7 @@ the exit coordinate of block B_k matches the entry of B_{k+1}.
 
 ---
 
-## 3. Arithmetic & Calculus
+## 4. Arithmetic & Calculus
 
 ### OPER-3 — Sparse Forward Differences (The Derivative)
 
@@ -123,7 +135,7 @@ two related coordinates in the operator tree.
 
 ---
 
-## 4. Long-Horizon Research
+## 5. Long-Horizon Research
 
 ### OD-35 — Distributive Law
 
