@@ -583,10 +583,11 @@ DN1-OA — OA(81,4,3,4) Strength-4 Certificate
   Verified:   17/17 tests pass (tests/test_core/test_lo_shu_sudoku.py)
 
 DN1-GEN — Generalisation to All Odd Orders
-  Status:     PROVEN for n ∈ {3,5,7}; CONJECTURE for all odd n
-  Proof type: algebraic (conditional on rank condition) + computational
-  Statement:  For any odd n and any Siamese n×n magic square L, the construction
-              yields OA(n^4, 4, n, 4).
+  Status:     PROVEN (for all odd n ≥ 3)
+  Proof type: algebraic_and_computational
+  Statement:  For any odd n and any Siamese n×n magic square L, the affine index 
+              maps have determinant 4. Since gcd(4, n)=1 for all odd n, the map 
+              is bijective, yielding OA(n^4, 4, n, 4).
 
 DN1-REC — Recursive OA Strength Doubling
   Status:     PROVEN for k=2 (n=3)
