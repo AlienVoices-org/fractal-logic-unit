@@ -295,7 +295,7 @@ exactly once (as (R,C) ranges over all n⁴ macro cells). The micro layer indepe
 covers the same set exactly once (as (r,c) ranges over all n⁴ micro cells). The
 joint address
 
-$$\bigl(M(R,C),\; \mu(r,c)\bigr) \in \left\{-\tfrac{n-1}{2},\ldots,\tfrac{n-1}{2}\right\}^4 \times \left\{-\tfrac{n-1}{2},\ldots,\tfrac{n-1}{2}\right\}^4$$
+(M(R,C), μ(r,c)) ∈ { –(n‑1)/2, …, (n‑1)/2 }⁴ × { –(n‑1)/2, …, (n‑1)/2 }⁴
 
 is injective: if $(M(R,C), \mu(r,c)) = (M(R',C'), \mu(r',c'))$, then $M(R,C)=M(R',C')$
 implies $(R,C)=(R',C')$ (by injectivity of the macro map), and $\mu(r,c)=\mu(r',c')$
