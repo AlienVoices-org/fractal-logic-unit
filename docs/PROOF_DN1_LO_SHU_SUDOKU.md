@@ -226,6 +226,42 @@ The only facts used are:
    holds because the two maps are linearly independent — they are the unique pair
    arising from the Siamese structure at this scale). □
 
+### 🔬 Closing DN1‑GEN: The Golden Determinant Proof
+
+The affine index maps for the Graeco‑Latin construction (ignoring the constant shifts) are:
+
+| Layer | Row index | Column index |
+|-------|-----------|--------------|
+| d₁    | `r_r − b_c` | `b_r + r_c` |
+| d₂    | `b_r + 2r_c` | `2r_r + 2b_c` |
+
+These decouple cleanly into two independent 2×2 systems:
+
+- **Block A** (variables `(b_r, r_c)` → outputs `(d₁.col, d₂.row)`):  
+  $$
+  \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}
+  $$
+  Determinant = \(1·2 − 1·1 = 1\).
+
+- **Block B** (variables `(r_r, b_c)` → outputs `(d₁.row, d₂.col)`):  
+  $$
+  \begin{pmatrix} 1 & -1 \\ 2 & 2 \end{pmatrix}
+  $$
+  Determinant = \(1·2 − (-1)·2 = 4\).
+
+Because the two blocks act on disjoint variable pairs, the full 4×4 linear map over ℤₙ is block‑diagonal. Its total determinant is the product:
+
+\[
+\Delta = 1 \times 4 = 4.
+\]
+
+**The key fact:** A linear map over ℤₙ is a bijection **iff** its determinant is coprime to \(n\).  
+Here \(\Delta = 4\). For any **odd** \(n\) (the FM‑Dance case), \(\gcd(4, n) = 1\) always holds.
+
+Thus the combined affine map from the 4‑digit coordinate space \((b_r, r_r, b_c, r_c)\) to the 4‑digit balanced address is a bijection for **every odd \(n \ge 3\)**. Consequently, the Graeco‑Latin property — and hence the OA(n⁴,4,n,4) — holds for all odd n.
+
+**Conclusion:** DN1‑GEN is **PROVEN** for all odd \(n \ge 3\). The previous conjecture is closed.
+
 ### 3.2  Scale Properties
 
 The construction scales as follows for odd n:
@@ -508,29 +544,13 @@ at full N they are equivalent for any order-invariant metric.
 
 ## 7 · Open Questions
 
-### 7.1  Proof Completeness for All Odd n
-
-The proof of DN1-GEN is complete for n ∈ {3, 5, 7} by exhaustive computational
-verification. For general odd n, the algebraic argument of Section 3.2 gives a
-structural proof assuming that the affine index maps f₁, f₂ have rank 4 over ℤₙ.
-This rank condition has been verified for n ∈ {3, 5, 7, 11, 13} but not formally
-proven for all odd n.
-
-**Open question (DN1-GEN-ALL):** Does the Graeco-Latin property hold for every
-odd n ≥ 3 and every FM-Dance/Siamese magic square L of order n?
-
-Evidence: all computational checks pass; the affine maps are defined by fixed
-integer coefficients (1, 2, −1) that are coprime to n for any odd n; the rank
-condition over ℤₙ is equivalent to checking that a 4×4 integer matrix with
-entries in {0, 1, 2} has non-zero determinant modulo n.
-
-### 7.2  Even n
+### 7.1  Even n
 
 The construction requires the Siamese method, which only works for odd n (T5).
 Even-n Latin hyperprisms use a different construction (EVEN-1, PROVEN). Whether
 the Graeco-Latin embedding principle generalises to even n is not currently known.
 
-### 7.3  Level-k Optimal Ordering
+### 7.2  Level-k Optimal Ordering
 
 The level-1 Sudoku ordering is demonstrably prefix-optimal for d=4 at N ≥ 9.
 The level-2 ordering (for the 3⁸ construction) has not been optimised for
@@ -538,7 +558,7 @@ partial-N discrepancy. The natural row-major ordering of the 81×81 grid may
 not be the best choice. Identifying the ordering that minimises prefix discrepancy
 at each intermediate N is an open problem.
 
-### 7.4  Integration with the Spectral Theorems
+### 7.3  Integration with the Spectral Theorems
 
 The S2 spectral vanishing property (zero mixed-frequency DFT for L1 arrays)
 implies exact integration of oscillatory functions. Whether the level-k Sudoku
@@ -551,7 +571,7 @@ but for the base lattice rather than the scrambling).
 
 ## 8 · Appendix: Theorem Registry Entries
 
-The following entries were added to the FLU theorem registry in V15.3.1:
+The following entries need to be added to the FLU theorem registry in V15.3.2:
 
 ```
 DN1 — Lo Shu Fractal Digital Net
