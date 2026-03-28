@@ -225,20 +225,15 @@ The affine index maps (ignoring the constant shifts) are:
 | d₂    | `b_r + 2 r_c`  | `2 r_r + 2 b_c` |
 
 These decouple into two independent 2×2 linear systems:
+Block A (variables (b_r, r_c) → outputs (d₁.col, d₂.row)):  
+The matrix is  
+[1  1; 1  2]  
+with determinant 1·2 − 1·1 = 1.
 
-- **Block A** (variables `(b_r, r_c)` → outputs `(d₁.col, d₂.row)`):  
-  The matrix is  
-  $$
-  \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}
-  $$  
-  with determinant \(1·2 − 1·1 = 1\).
-
-- **Block B** (variables `(r_r, b_c)` → outputs `(d₁.row, d₂.col)`):  
-  The matrix is  
-  $$
-  \begin{pmatrix} 1 & -1 \\ 2 & 2 \end{pmatrix}
-  $$  
-  with determinant \(1·2 − (-1)·2 = 4\).
+Block B (variables (r_r, b_c) → outputs (d₁.row, d₂.col)):  
+The matrix is  
+[1  -1; 2   2]  
+with determinant 1·2 − (−1)·2 = 4.
 
 Because the two blocks act on disjoint variable pairs, the full 4×4 linear map over ℤₙ is block‑diagonal. Its total determinant is the product  
 
