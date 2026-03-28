@@ -213,54 +213,46 @@ OA(n^(2^(k+1)), 2^(k+1), n, 2^(k+1)) — proven in Section 4.
 
 ### 3.1  Statement
 
-**Theorem (DN1-GEN, PROVEN for n ∈ {3,5,7}).** For any odd integer n ≥ 3 with
-an FM-Dance/Siamese n×n magic square L, the Graeco-Latin construction of
-Section 2 yields an OA(n⁴, 4, n, 4). The construction is explicit, O(n⁴)
-to build, and O(1) per cell lookup.
+**Theorem (DN1-GEN, PROVEN).** For any odd integer n ≥ 3 with an FM-Dance/Siamese n×n magic square L, the Graeco-Latin construction of Section 2 yields an OA(n⁴, 4, n, 4). The construction is explicit, O(n⁴) to build, and O(1) per cell lookup.
 
-**Proof.** The proof is identical to DN1-OA with n=3 replaced by arbitrary odd n.
-The only facts used are:
-1. L is a bijection {0,…,n-1}² → {1,…,n²} (T3, PROVEN for all odd n).
-2. bt_n is a bijection {1,…,n²} → {-(n-1)/2,…,(n-1)/2}² (arithmetic identity).
-3. The affine index maps f₁, f₂ have rank 4 over ℤₙ (verified computationally,
-   holds because the two maps are linearly independent — they are the unique pair
-   arising from the Siamese structure at this scale). □
+**Proof.** The proof follows the same structure as DN1-OA, but replaces the computational rank verification with an algebraic determinant argument that proves the affine index maps are bijective over ℤₙ for all odd n.
 
-### 🔬 Closing DN1‑GEN: The Golden Determinant Proof
+The affine index maps (ignoring the constant shifts) are:
 
-The affine index maps for the Graeco‑Latin construction (ignoring the constant shifts) are:
+| Layer | Row index      | Column index    |
+|-------|----------------|-----------------|
+| d₁    | `r_r − b_c`    | `b_r + r_c`     |
+| d₂    | `b_r + 2 r_c`  | `2 r_r + 2 b_c` |
 
-| Layer | Row index | Column index |
-|-------|-----------|--------------|
-| d₁    | `r_r − b_c` | `b_r + r_c` |
-| d₂    | `b_r + 2r_c` | `2r_r + 2b_c` |
-
-These decouple cleanly into two independent 2×2 systems:
+These decouple into two independent 2×2 linear systems:
 
 - **Block A** (variables `(b_r, r_c)` → outputs `(d₁.col, d₂.row)`):  
+  The matrix is  
   $$
   \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}
-  $$
-  Determinant = \(1·2 − 1·1 = 1\).
+  $$  
+  with determinant \(1·2 − 1·1 = 1\).
 
 - **Block B** (variables `(r_r, b_c)` → outputs `(d₁.row, d₂.col)`):  
+  The matrix is  
   $$
   \begin{pmatrix} 1 & -1 \\ 2 & 2 \end{pmatrix}
-  $$
-  Determinant = \(1·2 − (-1)·2 = 4\).
+  $$  
+  with determinant \(1·2 − (-1)·2 = 4\).
 
-Because the two blocks act on disjoint variable pairs, the full 4×4 linear map over ℤₙ is block‑diagonal. Its total determinant is the product:
+Because the two blocks act on disjoint variable pairs, the full 4×4 linear map over ℤₙ is block‑diagonal. Its total determinant is the product  
 
 \[
 \Delta = 1 \times 4 = 4.
 \]
 
-**The key fact:** A linear map over ℤₙ is a bijection **iff** its determinant is coprime to \(n\).  
-Here \(\Delta = 4\). For any **odd** \(n\) (the FM‑Dance case), \(\gcd(4, n) = 1\) always holds.
+A linear map over ℤₙ is a bijection **iff** its determinant is coprime to \(n\). Here \(\Delta = 4\). For any **odd** \(n \ge 3\), \(\gcd(4, n) = 1\) always holds. Therefore the combined affine map from the 4‑digit coordinate space \((b_r, r_r, b_c, r_c)\) to the four balanced digits is a bijection for every odd n.
 
-Thus the combined affine map from the 4‑digit coordinate space \((b_r, r_r, b_c, r_c)\) to the 4‑digit balanced address is a bijection for **every odd \(n \ge 3\)**. Consequently, the Graeco‑Latin property — and hence the OA(n⁴,4,n,4) — holds for all odd n.
+Since L is a bijection ℤₙ² → {1,…,n²} (T3) and btₙ is a bijection (balanced base‑n encoding), the composition yields a bijection from the n⁴ grid cells to the set of n‑ary 4‑tuples. Hence the grid forms an OA(n⁴, 4, n, 4). □
 
-**Conclusion:** DN1‑GEN is **PROVEN** for all odd \(n \ge 3\). The previous conjecture is closed.
+
+---
+
 
 ### 3.2  Scale Properties
 
