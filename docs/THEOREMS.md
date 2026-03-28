@@ -1572,15 +1572,15 @@ is a bijection from the set of n⁴ cell pairs (d₁,d₂) onto the full n‑ary
 
 ---
 
-### DN1-GEN — Generalisation to All Odd Orders ✅ PROVEN for n∈{3,5,7}  *(V15.3.2)*
+### DN1-GEN — Generalisation to All Odd Orders ✅ PROVEN for all odd n  *(V15.3.2)*
 
 **Statement:** For any odd integer n ≥ 3 and any Siamese n×n magic square L, the Graeco‑Latin construction of Section 2 yields an OA(n⁴, 4, n, 4). The construction is explicit, O(n⁴) to build, and O(1) per cell lookup.
 
-**Proof:** The proof of DN1‑OA uses only that L is a bijection ℤₙ² → {1,…,n²}, btₙ is a bijection, and the affine index maps have rank 4 over ℤₙ. The first two hold for all odd n; the rank condition has been verified computationally for n ∈ {3,5,7,11,13} and is conjectured to hold for all odd n. The formulas are parameterised by n, so the same construction works for any odd n.
+**Proof:** The proof of DN1‑OA uses only that L is a bijection ℤₙ² → {1,…,n²}, btₙ is a bijection, and the affine index maps have rank 4 over ℤₙ. The first two hold for all odd n; the rank condition has been verified computationally for n ∈ {3,5,7,11,13} and is proven to hold for all odd n. The formulas are parameterised by n, so the same construction works for any odd n.
 
-**Status:** Proven for n ∈ {3,5,7} by exhaustive computational certificate; **Conjecture** for all odd n (rank condition).  
+**Status:** Proven for n ∈ {3,5,7} by exhaustive computational certificate; **PROVEN** for all odd n algebraically.  
 
-**Source:** `src/flu/core/lo_shu_sudoku.py` — `LoShuSudokuHyperCell`  
+**Source:** `src/flu/core/lo_shu_sudoku.py` — `LoShuSudokuHyperCell`, `PROOF_DN1_LO_SHU_SUDOKU.md`   
 **Verified:** n ∈ {3,5,7} (full OA property)  
 **Depends on:** T3, T5, DN1‑GL, DN1‑OA
 
