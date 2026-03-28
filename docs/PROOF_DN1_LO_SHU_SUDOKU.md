@@ -142,7 +142,7 @@ $$\text{bt}_n(v) = (t_1, t_0) \quad\text{where}\quad t_1 \cdot n + t_0 = v - \tf
 
 The 4D address of cell (r,c) is:
 
-$$\text{addr}_4(r,c) = \text{bt}_n(d_1(r,c)) \parallel \text{bt}_n(d_2(r,c)) \in \left\{-\tfrac{n-1}{2},\ldots,\tfrac{n-1}{2}\right\}^4$$
+addr₄(r,c) = btₙ(d₁(r,c)) ∥ btₙ(d₂(r,c)) ∈ { –(n‑1)/2, …, (n‑1)/2 }⁴
 
 For n=3: bt₃ maps {1…9} → {-1,0,1}², so addr₄ ∈ {-1,0,1}⁴.
 
