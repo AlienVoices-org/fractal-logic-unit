@@ -150,7 +150,7 @@ For n=3: bt₃ maps {1…9} → {-1,0,1}², so addr₄ ∈ {-1,0,1}⁴.
 
 **Theorem (DN1-OA, PROVEN).** The map
 
-$$\text{addr}_4: \{1,\ldots,n^2\}^2 \to \left\{-\tfrac{n-1}{2},\ldots,\tfrac{n-1}{2}\right\}^4$$
+addr₄: {1,…,n²}² → { –(n‑1)/2, …, (n‑1)/2 }⁴
 
 defined by $(v_1, v_2) \mapsto \text{bt}_n(v_1) \parallel \text{bt}_n(v_2)$ is a bijection.
 Consequently, the n²×n² grid of 4D addresses forms an
