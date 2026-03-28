@@ -1,0 +1,306 @@
+{
+  "benchmark": "bench_loshu_sudoku",
+  "version": "15.3.2",
+  "scipy": true,
+  "4d": {
+    "full_N_results": [
+      {
+        "name": "LoShu-Sudoku-4D",
+        "desc": "NEW  OA(81,4,3,4) prefix-optimal ordering",
+        "l2star": 0.01067034,
+        "proj_disc": 0.17810541,
+        "poly_err": 0.59259259,
+        "osc_err": 0.0,
+        "gauss_est": 0.679751,
+        "gen_ms": 0.075,
+        "var_red_pct": 94.33
+      },
+      {
+        "name": "FractalNet-plain",
+        "desc": "van der Corput ordering",
+        "l2star": 0.01067034,
+        "proj_disc": 0.17810541,
+        "poly_err": 0.59259259,
+        "osc_err": 0.0,
+        "gauss_est": 0.679751,
+        "gen_ms": 0.058,
+        "var_red_pct": 94.33
+      },
+      {
+        "name": "FractalNet-APN",
+        "desc": "APN-scrambled (DN2 PROVEN)",
+        "l2star": 0.17706624,
+        "proj_disc": 0.30238382,
+        "poly_err": 0.19753086,
+        "osc_err": 0.0,
+        "gauss_est": 0.709156,
+        "gen_ms": 0.099,
+        "var_red_pct": 5.83
+      },
+      {
+        "name": "FractalNetKinetic",
+        "desc": "T9 PROVEN, FM-Dance ordering",
+        "l2star": 0.01067034,
+        "proj_disc": 0.17810541,
+        "poly_err": 0.59259259,
+        "osc_err": 0.0,
+        "gauss_est": 0.679751,
+        "gen_ms": 0.295,
+        "var_red_pct": 94.33
+      },
+      {
+        "name": "Halton-4D",
+        "desc": "base-prime",
+        "l2star": 0.18827807,
+        "proj_disc": 0.34871266,
+        "poly_err": 0.06081126,
+        "osc_err": 0.07520659,
+        "gauss_est": 0.727547,
+        "gen_ms": 0.14,
+        "var_red_pct": -0.13
+      },
+      {
+        "name": "Sobol-4D\u2020",
+        "desc": "SciPy base-2 \u2020degrades at non-2^k N",
+        "l2star": 0.18557467,
+        "proj_disc": 0.34831069,
+        "poly_err": 0.04162146,
+        "osc_err": 0.02227958,
+        "gauss_est": 0.724717,
+        "gen_ms": 0.0,
+        "var_red_pct": 1.31
+      },
+      {
+        "name": "Monte-Carlo",
+        "desc": "NumPy PRNG seed=42",
+        "l2star": 0.1880335,
+        "proj_disc": 0.34502557,
+        "poly_err": 0.06266992,
+        "osc_err": 0.00909356,
+        "gauss_est": 0.728481,
+        "gen_ms": 0.0,
+        "var_red_pct": 0.0
+      }
+    ],
+    "partial_N_sweep": {
+      "sizes": [
+        3,
+        9,
+        27,
+        81
+      ],
+      "curves": {
+        "LoShu-Sudoku-4D": [
+          0.323235,
+          0.041358,
+          0.063074,
+          0.01067
+        ],
+        "FractalNet-plain": [
+          0.646095,
+          0.422236,
+          0.241582,
+          0.01067
+        ],
+        "FractalNet-APN": [
+          0.163811,
+          0.146778,
+          0.165395,
+          0.177066
+        ],
+        "FractalNetKinetic": [
+          0.282613,
+          0.210692,
+          0.113944,
+          0.01067
+        ],
+        "Halton-4D": [
+          0.024372,
+          0.187183,
+          0.190703,
+          0.188278
+        ],
+        "Sobol-4D\u2020": [
+          0.305078,
+          0.149515,
+          0.187132,
+          0.185575
+        ],
+        "Monte-Carlo": [
+          0.164539,
+          0.177729,
+          0.184424,
+          0.188033
+        ]
+      }
+    }
+  },
+  "6d": {
+    "full_N_results": [
+      {
+        "name": "FHC36-Sudoku-6D",
+        "desc": "NEW  FractalHyperCell_3_6 sudoku generator",
+        "l2star": 0.05798339,
+        "proj_disc": 0.17810541,
+        "poly_err": 0.88888889,
+        "osc_err": 0.0,
+        "gauss_est": 0.560434,
+        "gen_ms": 2.51,
+        "var_red_pct": 33.99
+      },
+      {
+        "name": "FHC36-Product-6D",
+        "desc": "legacy FractalHyperCell_3_6 product generator",
+        "l2star": 0.05798339,
+        "proj_disc": 0.17810541,
+        "poly_err": 0.88888889,
+        "osc_err": 0.0,
+        "gauss_est": 0.560434,
+        "gen_ms": 2.964,
+        "var_red_pct": 33.99
+      },
+      {
+        "name": "FractalNet-6D-plain",
+        "desc": "van der Corput ordering",
+        "l2star": 0.05798339,
+        "proj_disc": 0.17810541,
+        "poly_err": 0.88888889,
+        "osc_err": 0.0,
+        "gauss_est": 0.560434,
+        "gen_ms": 0.076,
+        "var_red_pct": 33.99
+      },
+      {
+        "name": "FractalNet-6D-APN",
+        "desc": "APN-scrambled (DN2 PROVEN)",
+        "l2star": 0.0853017,
+        "proj_disc": 0.30350511,
+        "poly_err": 0.32098765,
+        "osc_err": 0.0,
+        "gauss_est": 0.609971,
+        "gen_ms": 0.126,
+        "var_red_pct": 2.89
+      },
+      {
+        "name": "FractalNetKin-6D",
+        "desc": "T9 PROVEN ordering",
+        "l2star": 0.05798339,
+        "proj_disc": 0.17810541,
+        "poly_err": 0.88888889,
+        "osc_err": 0.0,
+        "gauss_est": 0.560434,
+        "gen_ms": 2.494,
+        "var_red_pct": 33.99
+      },
+      {
+        "name": "Halton-6D",
+        "desc": "base-prime",
+        "l2star": 0.08793882,
+        "proj_disc": 0.35273655,
+        "poly_err": 0.01504305,
+        "osc_err": 0.00282754,
+        "gauss_est": 0.616559,
+        "gen_ms": 2.213,
+        "var_red_pct": -0.11
+      },
+      {
+        "name": "Sobol-6D\u2020",
+        "desc": "SciPy base-2 \u2020degrades at non-2^k N",
+        "l2star": 0.08777012,
+        "proj_disc": 0.35349653,
+        "poly_err": 0.00078789,
+        "osc_err": 0.0006109,
+        "gauss_est": 0.61638,
+        "gen_ms": 0.0,
+        "var_red_pct": 0.08
+      },
+      {
+        "name": "Monte-Carlo-6D",
+        "desc": "NumPy PRNG seed=42",
+        "l2star": 0.08784308,
+        "proj_disc": 0.35207748,
+        "poly_err": 0.00821985,
+        "osc_err": 0.00217123,
+        "gauss_est": 0.614074,
+        "gen_ms": 0.0,
+        "var_red_pct": 0.0
+      }
+    ],
+    "partial_N_sweep": {
+      "sizes": [
+        3,
+        9,
+        27,
+        81,
+        243,
+        729
+      ],
+      "curves": {
+        "FHC36-Sudoku-6D": [
+          0.121231,
+          0.125218,
+          0.071271,
+          0.101022,
+          0.058777,
+          0.057983
+        ],
+        "FHC36-Product-6D": [
+          0.306221,
+          0.312913,
+          0.167154,
+          0.046766,
+          0.052559,
+          0.057983
+        ],
+        "FractalNet-6D-plain": [
+          0.701095,
+          0.494472,
+          0.342685,
+          0.229067,
+          0.140103,
+          0.057983
+        ],
+        "FractalNet-6D-APN": [
+          0.071281,
+          0.07247,
+          0.072186,
+          0.071482,
+          0.080991,
+          0.085302
+        ],
+        "FractalNetKin-6D": [
+          0.330196,
+          0.252361,
+          0.17959,
+          0.124491,
+          0.083314,
+          0.057983
+        ],
+        "Halton-6D": [
+          0.178777,
+          0.065243,
+          0.088816,
+          0.087593,
+          0.087958,
+          0.087939
+        ],
+        "Sobol-6D\u2020": [
+          0.318927,
+          0.080026,
+          0.080951,
+          0.086366,
+          0.087832,
+          0.08777
+        ],
+        "Monte-Carlo-6D": [
+          0.074322,
+          0.082301,
+          0.08432,
+          0.086346,
+          0.087135,
+          0.087843
+        ]
+      }
+    }
+  }
+}
