@@ -1,6 +1,6 @@
 # FLU — Open Debt Registry
 
-**Status as of V15.3.2 (2026-03-28). DN1 PROVEN. Registry: 61 PROVEN · 75 total · 2 open.**
+**Status as of V15.3.2 (2026-03-28). DN1 PROVEN. Registry: 71 PROVEN · 75 total · 2 open.**
 
 ---
 
