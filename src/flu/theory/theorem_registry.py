@@ -43,6 +43,8 @@ from flu.theory.theory_fm_dance import (
     DN1_DIGITAL_NET,
     DN1_GL_GRAECO_LATIN,
     DN1_OA_STRENGTH4,
+    DN1_GEN_ALL_ODD,
+    DN1_REC_RECURSIVE,
     OD19_LINEAR,
     DELTA_MIN_19,
     DELTA_MIN_31,
@@ -579,9 +581,11 @@ def _build_registry() -> Dict[str, TheoremRecord]:
     reg["C2-SCOPED"]   = C2_SCOPED_PROVEN
 
     # V14 conjectures (open)
-    reg["DN1"]         = DN1_DIGITAL_NET         # PROVEN V15.3+
-    reg["DN1-GL"]      = DN1_GL_GRAECO_LATIN     # PROVEN V15.3+
-    reg["DN1-OA"]      = DN1_OA_STRENGTH4        # PROVEN V15.3+
+    reg["DN1"]          = DN1_DIGITAL_NET         # PROVEN V15.3+
+    reg["DN1-GL"]       = DN1_GL_GRAECO_LATIN     # PROVEN V15.3+
+    reg["DN1-OA"]       = DN1_OA_STRENGTH4        # PROVEN V15.3+
+    reg["DN1-GEN"]      = DN1_GEN_ALL_ODD         # PROVEN V15.3.2 (all odd n)
+    reg["DN1-REC"]      = DN1_REC_RECURSIVE       # PROVEN V15.3.2 (recursive)
     reg["OD-19-LINEAR"] = OD19_LINEAR            # PROVEN V15.3+
     reg["OD-16"]       = DELTA_MIN_19
     reg["OD-17"]       = DELTA_MIN_31
@@ -753,6 +757,8 @@ _PROOF_STATUS_MAP: Dict[str, str] = {
     "DN1":          "algebraic_and_computational",  # PROVEN: Graeco-Latin + OA(81,4,3,4) + recursive
     "DN1-GL":       "algebraic_and_computational",  # PROVEN: generation formulas + 0-mismatch verification
     "DN1-OA":       "algebraic_and_computational",  # PROVEN: OA strength-4 certificate (17 tests)
+    "DN1-GEN":      "algebraic_and_computational",  # PROVEN: det=4, gcd(4,n)=1 for all odd n
+    "DN1-REC":      "algebraic_and_computational",  # PROVEN: recursive strength doubling, k=2 verified
     "OD-19-LINEAR": "algebraic_and_computational",  # PROVEN: linear-digit uniqueness, 7-step proof
     "T8b":          "algebraic_and_computational",  # updated: OD-19 open part now closed by OD-19-LINEAR
 }
@@ -859,19 +865,3 @@ def status_report() -> str:
 
     lines.append(f"\nTotal registered: {len(REGISTRY)}")
     return "\n".join(lines)
-
-
-# ── V14 Release Notes ─────────────────────────────────────────────────────────
-# V14 changes relative to V13:
-#   - Version bump: 13.0.0 → 14.0.0
-#   - All module headers updated to V14
-#   - lo_shu.py: V14 Audit Integration block added (OA(81,4,3,2), AG(4,3),
-#     |Aut|=72 proof, FM-Dance discrepancy, expander mixing)
-#   - New docs/OPEN_DEBT.md (comprehensive open debt registry)
-#   - New docs/AUDIT_NOTES.md (audit finding integration)
-#   - OD-26 closed: FM-Dance confirmed NOT low-discrepancy
-#   - OD-27 registered: Digital Net Conjecture (fractal Lo Shu unranking)
-#   - T8b registered: Step Vector Uniqueness Conjecture (OD-19)
-#   - OD-16/OD-17 (Delta-Min Z_19/Z_31) remain OPEN; search expanded to
-#     8M / 3.3M trials respectively — no δ=2 found
-# ─────────────────────────────────────────────────────────────────────────────
