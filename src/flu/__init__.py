@@ -8,8 +8,8 @@ quasi-Monte Carlo sequences, orthogonal designs, sparse compression, and related
 combinatorial structures.
 
 FLU provides a unified algebraic framework with direct O(D) bijections, Latin
-preservation, Hamiltonian paths on tori, and interfaces backed by 58 proven
-theorems (as of V15, March 2026).
+preservation, Hamiltonian paths on tori, and interfaces backed by 71 proven
+theorems (as of V15.3.2, March 2026).
 
 Core capabilities include:
 - FM-Dance bijection and path traversal (O(D) coordinate access)
@@ -104,7 +104,7 @@ from flu.applications.neural     import FLUInitializer, DynamicFLUNetwork
 from flu.applications.quantum    import TensorNetworkSimulator
 from flu.applications.lighthouse import LighthouseBeacon, BeaconKey, cli_main
 from flu.core.vhdl_gen         import generate_vhdl, export_vhdl
-from flu.core.fractal_net      import FractalNet, FractalNetKinetic          # OD-27 Digital Net — identity generator (control) / T9 PROVEN — FM-Dance T-matrix digital sequence
+from flu.core.fractal_net      import FractalNet, FractalNetKinetic, FractalNetOrthogonal   # OD-27 / T9 / DN1: identity / T-matrix / OA(n⁴,4,n,4) digital nets
 from flu.interfaces.digital_net import (
     FractalNetCorputFacet,    # FMD-NET PROVEN — van der Corput facet (researcher interface)
     FractalNetKineticFacet,   # T9 PROVEN      — kinetic digital net facet (researcher interface)
