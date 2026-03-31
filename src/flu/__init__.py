@@ -8,8 +8,8 @@ quasi-Monte Carlo sequences, orthogonal designs, sparse compression, and related
 combinatorial structures.
 
 FLU provides a unified algebraic framework with direct O(D) bijections, Latin
-preservation, Hamiltonian paths on tori, and interfaces backed by 71 proven
-theorems (as of V15.3.2, March 2026).
+preservation, Hamiltonian paths on tori, and interfaces backed by 58 proven
+theorems (as of V15, March 2026).
 
 Core capabilities include:
 - FM-Dance bijection and path traversal (O(D) coordinate access)
@@ -97,7 +97,7 @@ from flu.core.parity_switcher  import generate, generate_metadata, verify_latin
 from flu.container.contract    import UKMCContract
 from flu.container.manifold    import cell_to_sparse_coords, sparse_coords_to_norm0, verify_seam
 from flu.container.communion   import CommunionEngine
-from flu.container.sparse      import SparseCommunionManifold, SparseArithmeticManifold, SparseEvenManifold, ScarStore, ForeignField
+from flu.container.sparse      import SparseCommunionManifold, SparseArithmeticManifold, SparseEvenManifold, SparseOrthogonalManifold, ScarStore, ForeignField
 from flu.applications.codes      import LatinSquareCode, build_code_matrix
 from flu.applications.design     import ExperimentalDesign, DesignResult
 from flu.applications.neural     import FLUInitializer, DynamicFLUNetwork
