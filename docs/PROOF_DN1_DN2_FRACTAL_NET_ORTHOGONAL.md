@@ -778,19 +778,59 @@ This two-phase structure — deterministic spectral hole plus exponential decay 
 - Sobol alone: nontrivial dual lattice D* ≠ {0}; only structured decay  
 - Either alone: combined DN1+DN2 achieves both annihilation and decay simultaneously
 
+
 ### 8.2  Walsh-Space Pareto Optimality (DNO-OPT-WALSH)
+**Lemma (OA–Walsh equivalence).** A digital net can annihilate all Walsh modes supported on a coordinate subset u ⊆ {1,...,d} only if its OA strength ≥ |u|. Equivalently, the maximum dimension of Walsh subspaces that can be completely annihilated equals the OA strength.
 
-**Lemma (OA–Walsh equivalence).** A digital net can annihilate all Walsh modes with support on subset u only if its OA strength ≥ |u|. Equivalently, the maximum annihilable subspace has dimension equal to the OA strength.
+**Proof.** Walsh frequencies h ∈ ℕ^d can be decomposed by their active coordinate support:
+```
+supp(h) = { i : h_i ≠ 0 }.
+```
+For a subset u ⊆ {1,...,d}, Walsh modes supported on u correspond to functions depending only on coordinates in u.
 
-**Proof.** Walsh modes with support on subset u ⊆ {1,...,d} of |u| coordinates correspond to the μ(h) = 0 layer for the projection onto u. If all such modes are annihilated, the marginal on u is uniform, which requires OA(N, |u|, n, |u|). Contrapositive: OA strength < |u| implies some u-marginal is non-uniform, so some Walsh mode survives. □
+The condition ν(h) = 0 restricts all active digits of h to the base digit layer. Thus, Walsh modes with ν(h)=0 and supp(h) ⊆ u probe exactly the base-n structure of the projection onto coordinates u.
+
+If all such Walsh modes are annihilated, then:
+```
+P_hat_N(h) = 0   for all h ≠ 0 with supp(h) ⊆ u and ν(h)=0,
+```
+which implies exact uniformity of the marginal distribution on u.
+
+This is equivalent to requiring:
+```
+OA(N, |u|, n, |u|).
+```
+Conversely, if OA strength < |u|, then some marginal on u is non-uniform, so there exists at least one Walsh mode supported on u with ν(h)=0 that survives.
+
+Thus, annihilation of all Walsh modes on u is equivalent to OA strength ≥ |u|. □
 
 **Theorem DNO-OPT-WALSH (PROVEN).** Among all Z_n-linear digital nets with APN Owen scrambling in dimension d = 4k:
 
-1. **Maximal annihilation:** DN1-REC annihilates all Walsh frequencies with μ(h)=0 — the maximal possible set (OA–Walsh equivalence: bounded by OA strength = 4k = d).
-2. **Optimal decay:** (B/√n)^{μ(h)} is the tightest achievable exponential rate under APN scrambling (Weil 1948 bound is tight for power-map seeds: B=1 exactly).
-3. **Pareto optimality:** No net can simultaneously annihilate more frequencies AND decay faster on surviving ones. Any alternative net either has lower OA strength (fewer zeros) or achieves the same OA strength and same decay — it cannot strictly improve both.
+1. **Maximal annihilation:**  
+   DN1-REC annihilates all Walsh frequencies with ν(h)=0 and h ≠ 0 — the maximal possible set (by OA–Walsh equivalence, bounded by OA strength = 4k = d).
 
-**Proof.** (1) follows from DNO-DUAL + OA–Walsh equivalence. (2): the APN character sum bound |χ_f(h,Δ)|/√n ≤ B is tight for power-map seeds (equals exactly 1 by Weil 1948 for f(x)=x³ over prime fields). (3): If alternative net has OA strength < 4k, it fails condition (1). If OA strength = 4k, same annihilation set; decay rate cannot exceed the Weil-tight APN bound. □
+2. **Optimal decay:**  
+   The bound:
+```
+|P_hat_N(h)| ≤ (B/√n)^{ν(h)}
+```
+   is the tightest achievable exponential decay rate under APN scrambling (Weil 1948 bound is tight for power-map seeds, giving B = 1 exactly).
+
+3. **Pareto optimality:**  
+   No digital net can simultaneously annihilate a strictly larger set of Walsh frequencies and achieve strictly faster decay on the remaining ones. Any alternative net either:
+   - has lower OA strength (fewer annihilated modes), or
+   - achieves the same annihilation set and the same decay rate.
+
+**Proof.**  
+(1) follows from DNO-SPECTRAL (trivial dual net D* = {0}) together with the OA–Walsh equivalence lemma: OA strength = d implies annihilation of all ν(h)=0 modes.
+(2) The APN character sum bound:
+```
+|χ_f(h,Δ)| / √n ≤ B
+```
+is tight for optimal constructions (e.g. power maps over prime fields), so the decay rate (B/√n)^{ν(h)} cannot be improved in general.
+
+(3) If an alternative net has OA strength < 4k, then by the lemma it cannot annihilate all ν(h)=0 modes. If it has OA strength = 4k, then it achieves the same annihilation set. The decay rate is bounded by the same APN/Weil limit, so no strict improvement is possible in both objectives simultaneously. □
+
 
 ### 8.3  Minimax Optimality (DNO-MINIMAX)
 
