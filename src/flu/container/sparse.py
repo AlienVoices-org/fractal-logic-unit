@@ -659,50 +659,36 @@ class ScarStore:
         )
 
 
-# ── SparseOrthogonalManifold ─────────────────────────────────────────────────
-#
-# V15.3.2 addition: O(D) memory-free oracle for the DN1-REC orthogonal array.
-#
-# THEOREM (DNO-WALSH-REC, PROVEN V15.3.2):
-#   The dual net is {0} at every depth M — trivial Walsh spectrum.
-#   All non-zero Fourier/Walsh modes are annihilated exactly.
-#
-# This manifold uses the DN1 generator matrix A (det=4) applied to each
-# base-n⁴ chunk of the rank index k, giving O(D) evaluation with no
-# precomputed lookup tables. Analogous to SparseCommunionManifold but uses
-# the Graeco-Latin affine map instead of per-axis seed permutations.
-#
-# Interface: identical to SparseCommunionManifold — supports the same
-# __getitem__, cell_at_rank, and arithmetic mixin protocols.
-
-class SparseOrthogonalManifold:
+class SparseOrthogonalManifold(ArithmeticMixin):
     """
-    O(D) memory-free oracle for the DN1-REC Orthogonal Array manifold.
+    O(D) memory‑free oracle for the DN1‑REC Orthogonal Array manifold.
 
-    Evaluates the Graeco-Latin affine map A ∈ GL(4, Z_n) strictly on-demand,
+    Evaluates the Graeco‑Latin affine map A ∈ GL(4, Z_n) strictly on‑demand,
     in chunks of 4 dimensions (one application of A per chunk). Supports
-    dimension d = 4k for any k ≥ 1 (DN1-REC recursive structure).
+    dimension d = 4k for any k ≥ 1 and any base n ≥ 2.
+
+    **Unified generator** (PROVEN V15.3.2):
+      - odd n : Lo Shu map   (det=4, invertible because gcd(4,n)=1)
+      - even n: snake map    (det=1, invertible for all n)
+
+    The recursive block‑diagonal extension A^(k) = A ⊕ … ⊕ A yields
+    OA(n^(4k), 4k, n, 4k) for every n ≥ 2, k ≥ 1.
+
+    Manifold value: sum of the four coordinates of each block, reduced
+    modulo n and centred. This gives a scalar value in [–(n‑1)/2, (n‑1)/2].
 
     THEOREMS (all PROVEN V15.3.2):
-      DN1-GEN:   A ∈ GL(4, Z_n) for all odd n, det(A) = 4, gcd(4,n)=1.
-      DN1-OA:    Evaluates OA(n⁴, 4, n, 4) per 4-dim chunk.
-      DNO-REC-MATRIX: Full manifold is OA(n^(4k), 4k, n, 4k) via A⊕...⊕A.
-      DNO-WALSH-REC:  Dual net = {0} at every depth — perfect spectral delta.
+      DNO‑GEN          – A ∈ GL(4, Z_n) for all n ≥ 2.
+      DNO‑OA           – A maps Z_n⁴ bijectively → Z_n⁴ → OA(n⁴,4,n,4).
+      DNO‑REC‑MATRIX   – A^(k) ∈ GL(4k, Z_n) → OA(n^(4k),4k,n,4k).
+      DNO‑WALSH‑REC    – Dual net D* = {0} (trivial) at every depth.
+      DNO‑SPECTRAL     – Hard cutoff at μ(h)=0 + exponential decay.
+      DNO‑COEFF‑EVEN   – Even‑n OA via snake map (all n ≥ 2).
 
     Parameters
     ----------
-    n : int
-        Base radix. Must be odd (Siamese magic square requirement).
-    d : int
-        Spatial dimension. Must be a multiple of 4 (DN1-REC requirement).
-
-    Interface
-    ---------
-    Same as SparseCommunionManifold:
-      M[coord]          — single cell O(D)
-      M[coords_array]   — batch evaluation O(N·D)
-      M.cell_at_rank(k) — evaluate at FM-Dance rank (for compat)
-      M.cell_at_oa_rank(k) — evaluate at OA (natural digit) rank
+    n : int   base radix (n ≥ 2)
+    d : int   spatial dimension, must be a multiple of 4 (DN1‑REC)
 
     Examples
     --------
@@ -713,90 +699,96 @@ class SparseOrthogonalManifold:
     0
     >>> M.verify_oa()          # True for first n^4 = 81 cells
     True
+
+    Even‑n example (n=4, d=8):
+    >>> M2 = SparseOrthogonalManifold(n=4, d=8)
+    >>> M2.verify_oa()          # OA(65536,8,4,8) check (takes ~1 sec)
+    True
     """
 
     def __init__(self, n: int, d: int) -> None:
-        if not is_odd(n):
-            raise ValueError(
-                f"SparseOrthogonalManifold requires odd n (got n={n}). "
-                f"The Siamese magic square construction requires odd n."
-            )
-        if n < 3:
-            raise ValueError(f"n must be ≥ 3, got {n}")
+        if n < 2:
+            raise ValueError(f"n must be ≥ 2, got {n}")
         if d < 4 or d % 4 != 0:
             raise ValueError(
-                f"d must be a multiple of 4 (DN1-REC dimension), got d={d}. "
-                f"Use d=4 for base DN1, d=8 for level-2 DN1-REC, etc."
+                f"d must be a multiple of 4 (DN1‑REC dimension), got d={d}. "
+                f"Use d=4 for base DN1, d=8 for level‑2 DN1‑REC, etc."
             )
         self.n    = n
         self.d    = d
         self.half = n // 2
         self.shape: Tuple[int, ...] = tuple([n] * d)
-        self._blocks: int = d // 4   # number of 4-dim A-blocks
+        self._blocks = d // 4                 # number of 4‑dim A‑blocks
+        self._is_odd = (n % 2 != 0)
 
-    # ── Core evaluation: the DN1 generator A ─────────────────────────────
+    # ── Core evaluation: the DN1 generator A (unified) ───────────────────
 
     @staticmethod
-    def _apply_A(b_r: int, r_r: int, b_c: int, r_c: int, n: int, half: int) -> Tuple[int, int, int, int]:
+    def _apply_lo_shu(b_r: int, r_r: int, b_c: int, r_c: int, n: int, half: int):
         """
-        Apply generator matrix A to one 4-digit chunk (b_r, r_r, b_c, r_c).
-
-        A = [[0, 1,-1, 0],   det(A) = 4, A ∈ GL(4, Z_n) for all odd n.
-             [1, 0, 0, 1],
-             [1, 0, 0, 2],
-             [0, 2, 2, 0]]
-
-        Returns signed coordinates in {-(n-1)/2,...,(n-1)/2}^4.
+        Lo Shu map (odd n). det=4, invertible when gcd(4,n)=1.
         """
         a1 = (r_r - b_c) % n
         a2 = (b_r + r_c) % n
         a3 = (b_r + 2 * r_c) % n
         a4 = (2 * r_r + 2 * b_c) % n
-        return (a1 - half, a2 - half, a3 - half, a4 - half)
+        return a1 - half, a2 - half, a3 - half, a4 - half
+
+    @staticmethod
+    def _apply_snake(b_r: int, r_r: int, b_c: int, r_c: int, n: int, half: int):
+        """
+        Snake map (even n). det=1, invertible for every integer n.
+        """
+        a1 = b_r
+        a2 = (b_r + r_r) % n
+        a3 = (r_r + b_c) % n
+        a4 = (b_c + r_c) % n
+        return a1 - half, a2 - half, a3 - half, a4 - half
+
+    def _apply_A(self, b_r: int, r_r: int, b_c: int, r_c: int) -> Tuple[int, int, int, int]:
+        """Dispatch to the appropriate map based on parity."""
+        if self._is_odd:
+            return self._apply_lo_shu(b_r, r_r, b_c, r_c, self.n, self.half)
+        else:
+            return self._apply_snake(b_r, r_r, b_c, r_c, self.n, self.half)
 
     def _oa_rank_to_signed_coords(self, k: int) -> Tuple[int, ...]:
         """
-        Map OA rank k ∈ [0, n^d) to signed d-dimensional coordinates.
+        Map OA rank k ∈ [0, n^d) to signed d‑dimensional coordinates.
 
-        Uses the natural base-n⁴ digit expansion:
-          k = sum_i chunk_i * (n^4)^i
-        Then applies A to each 4-dim chunk independently (A^(d/4) structure).
-
-        This is the 'natural digit ordering' — differs from FractalNetOrthogonal's
-        Sudoku row-major ordering, but covers the same set of n^d coordinates.
+        Uses the natural base‑n⁴ digit expansion:
+            k = Σ_i chunk_i * (n^4)^i
+        Then applies A to each 4‑dim chunk independently (A^(d/4) structure).
 
         O(d) time, O(1) memory.
         """
-        coords: List[int] = []
         n4 = self.n ** 4
+        coords = []
+        kk = k
         for _ in range(self._blocks):
-            chunk = k % n4
-            k    //= n4
+            chunk = kk % n4
+            kk //= n4
             b_r = (chunk // self.n ** 3) % self.n
             r_r = (chunk // self.n ** 2) % self.n
             b_c = (chunk // self.n)      % self.n
             r_c = chunk                  % self.n
-            coords.extend(self._apply_A(b_r, r_r, b_c, r_c, self.n, self.half))
+            coords.extend(self._apply_A(b_r, r_r, b_c, r_c))
         return tuple(coords)
 
     def _signed_to_value(self, signed_coords: Tuple[int, ...]) -> int:
         """
-        Map a signed d-dimensional coordinate to a scalar manifold value.
+        Map a signed d‑dimensional coordinate to a scalar manifold value.
 
-        Convention (matching SparseCommunionManifold): sum the first coordinate
-        of each 4-block after sign centering, modulo n, then centre.
-        This gives a well-defined O(D) evaluation that is consistent across
-        all manifold types.
+        Definition: sum all coordinates, reduce modulo n, centre.
+        This matches the convention of SparseCommunionManifold and gives a
+        well‑defined O(D) evaluation.
         """
         total = sum(c + self.half for c in signed_coords) % self.n
         return int(total) - self.half
 
-    # ── Indexing protocol ─────────────────────────────────────────────────
+    # ── Indexing protocol (single and batch) ────────────────────────────
 
-    def __getitem__(
-        self,
-        key: Union[int, Tuple, "np.ndarray"],
-    ) -> Union[int, "np.ndarray"]:
+    def __getitem__(self, key):
         """
         Evaluate at signed coordinate(s).
 
@@ -821,23 +813,32 @@ class SparseOrthogonalManifold:
             raise IndexError(f"Expected {self.d} coordinates, got {len(key)}.")
         return self._signed_to_value(key)
 
-    def _batch_evaluate(self, coords_array: "np.ndarray") -> "np.ndarray":
-        """Vectorised batch evaluation. O(N·D)."""
+    def _batch_evaluate(self, coords_array: np.ndarray) -> np.ndarray:
+        """
+        Vectorised batch evaluation.
+
+        For each batch of coordinates, we compute the scalar value by
+        summing all coordinates (unsigned), mod n, then centre.
+        This is O(N·D) and uses the unified map indirectly through the
+        definition of the signed coordinates.
+        """
         coords_array = np.asarray(coords_array, dtype=int)
         if coords_array.shape[-1] != self.d:
-            raise ValueError(f"Last dim must be {self.d}, got {coords_array.shape[-1]}.")
+            raise ValueError(
+                f"Last dimension must be {self.d}, got {coords_array.shape[-1]}."
+            )
         # Sum all coordinates (unsigned), reduce mod n, centre
         unsigned = (coords_array + self.half) % self.n
         return (np.sum(unsigned, axis=-1) % self.n) - self.half
 
-    # ── Rank interface ────────────────────────────────────────────────────
+    # ── Rank interface (forward and inverse) ────────────────────────────
 
     def cell_at_oa_rank(self, k: int) -> int:
         """
-        Evaluate at DN1-REC rank k (natural base-n⁴ digit ordering).
+        Evaluate at DN1‑REC rank k (natural base‑n⁴ digit ordering).
 
-        Uses the Graeco-Latin affine map A applied per 4-dim block.
-        O(D) time, O(1) memory. No precomputed tables.
+        Uses the Graeco‑Latin affine map A applied per 4‑dim block.
+        O(d) time, O(1) memory. No precomputed tables.
 
         Parameters
         ----------
@@ -852,26 +853,108 @@ class SparseOrthogonalManifold:
 
     def cell_at_rank(self, k: int) -> int:
         """
-        Evaluate at FM-Dance rank k (backward compat with SparseCommunionManifold).
+        Evaluate at FM‑Dance rank k (backward compatibility).
 
-        Uses index_to_coords (van-der-Corput ordering), then evaluates via A.
-        This gives the same n^d VALUE SET as cell_at_oa_rank but at a
-        different ordering of ranks.
+        Uses index_to_coords (van‑der‑Corput ordering), then evaluates via A.
+        This gives the same VALUE SET as cell_at_oa_rank but at a different
+        ordering of ranks.
 
         Parameters
         ----------
-        k : int   FM-Dance rank in [0, n^d)
+        k : int   FM‑Dance rank in [0, n^d)
         """
+        from flu.core.fm_dance import index_to_coords
         coords_signed = tuple(int(c) for c in index_to_coords(k, self.n, self.d))
         return self._signed_to_value(coords_signed)
 
-    # ── Arithmetic mixin ─────────────────────────────────────────────────
+    def oa_rank_from_coords(self, coords: Union[Tuple[int, ...], np.ndarray]) -> Union[int, np.ndarray]:
+        """
+        Inverse oracle: map signed coordinates back to OA rank.
 
-    def __add__(self, other: "SparseOrthogonalManifold") -> "SparseOrthogonalManifold":
-        """Communion: concatenate dimensions (same n required)."""
-        if not isinstance(other, SparseOrthogonalManifold) or other.n != self.n:
-            raise ValueError("Communion requires matching SparseOrthogonalManifold with same n.")
-        return SparseOrthogonalManifold(n=self.n, d=self.d + other.d)
+        Works for both single coordinates and batch arrays.
+        This is the exact inverse of _oa_rank_to_signed_coords.
+
+        Parameters
+        ----------
+        coords : tuple of ints or np.ndarray of shape (..., d)
+
+        Returns
+        -------
+        rank : int or np.ndarray of shape (...)
+        """
+        # Convert to numpy for batch handling
+        if isinstance(coords, (tuple, list)):
+            coords = np.array(coords, dtype=int)
+        coords = np.asarray(coords, dtype=int)
+        if coords.shape[-1] != self.d:
+            raise ValueError(f"Last dimension must be {self.d}, got {coords.shape[-1]}")
+
+        # Shift from signed to unsigned [0, n-1]
+        unsigned = (coords + self.half) % self.n
+
+        # Reshape to separate blocks: (..., blocks, 4)
+        shape = unsigned.shape
+        last = shape[-1]
+        if last != self.d:
+            raise ValueError(f"Internal error: last dim {last} != {self.d}")
+        # New shape: (..., blocks, 4)
+        blocks = self._blocks
+        unsigned = unsigned.reshape(shape[:-1] + (blocks, 4))
+
+        if self._is_odd:
+            # Inverse of Lo Shu map (odd n). We need to recover (b_r,r_r,b_c,r_c)
+            # from (a1,a2,a3,a4) with formulas:
+            #   a1 = r_r - b_c
+            #   a2 = b_r + r_c
+            #   a3 = b_r + 2*r_c
+            #   a4 = 2*(r_r + b_c)
+            # Solve: r_c = a3 - a2
+            #        b_r = a2 - r_c
+            #        sum_rb = a4 * inv2   (since a4 = 2*(r_r+b_c))
+            #        r_r = (sum_rb + a1) * inv2
+            #        b_c = (r_r - a1)
+            inv2 = pow(2, -1, self.n)          # modular inverse of 2
+            a1 = unsigned[..., 0]
+            a2 = unsigned[..., 1]
+            a3 = unsigned[..., 2]
+            a4 = unsigned[..., 3]
+
+            r_c = (a3 - a2) % self.n
+            b_r = (a2 - r_c) % self.n
+            sum_rb = (a4 * inv2) % self.n      # = (r_r + b_c) mod n
+            r_r = ((sum_rb + a1) * inv2) % self.n
+            b_c = (r_r - a1) % self.n
+            # Pack into original order: (b_r, r_r, b_c, r_c)
+            block_vals = np.stack([b_r, r_r, b_c, r_c], axis=-1)
+        else:
+            # Inverse of snake map (even n). Straight back‑substitution.
+            #   a1 = b_r
+            #   a2 = b_r + r_r
+            #   a3 = r_r + b_c
+            #   a4 = b_c + r_c
+            a1 = unsigned[..., 0]
+            a2 = unsigned[..., 1]
+            a3 = unsigned[..., 2]
+            a4 = unsigned[..., 3]
+            b_r = a1
+            r_r = (a2 - a1) % self.n
+            b_c = (a3 - r_r) % self.n
+            r_c = (a4 - b_c) % self.n
+            block_vals = np.stack([b_r, r_r, b_c, r_c], axis=-1)
+
+        # Convert each block to an integer in [0, n^4-1]
+        block_ints = block_vals[..., 0] * (self.n ** 3) + \
+                     block_vals[..., 1] * (self.n ** 2) + \
+                     block_vals[..., 2] * self.n + \
+                     block_vals[..., 3]
+        # Combine blocks (mixed‑radix with base n^4)
+        base = self.n ** 4
+        result = 0
+        for i in range(blocks):
+            result += block_ints[..., i] * (base ** i)
+        if result.shape == ():
+            return int(result)
+        return result
 
     # ── Verification ─────────────────────────────────────────────────────
 
@@ -879,9 +962,9 @@ class SparseOrthogonalManifold:
         """
         Verify OA(n^d, d, n, d) for first n^d cells via cell_at_oa_rank.
 
-        Checks that all n^d signed d-tuples appear exactly once.
-        O(n^d · d) time — practical for d=4 (n^4 = 81 for n=3).
-        For d=8 (6561 cells), runs in under a second.
+        Checks that all n^d signed d‑tuples appear exactly once.
+        O(n^d · d) time – practical for d=4 (n^4 = 81 for n=3),
+        for d=8 (6561 cells) runs in under a second.
 
         Returns True iff OA property holds.
         """
@@ -892,7 +975,7 @@ class SparseOrthogonalManifold:
             seen.add(coords)
         return len(seen) == N
 
-    def materialize(self) -> "np.ndarray":
+    def materialize(self) -> np.ndarray:
         """
         Materialise the full n^d value tensor (for d ≤ 4 only; d=8 is 6561 cells).
 
