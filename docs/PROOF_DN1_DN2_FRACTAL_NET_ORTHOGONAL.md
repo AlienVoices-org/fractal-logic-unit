@@ -464,7 +464,7 @@ Each factor equals 1 if A^(k)^T h_m = 0 (i.e. h_m = 0), else 0. The product equa
 | Sobol               | nontrivial sparse lattice| structured/fixed |
 | **DN1-REC**         | **{0} (trivial)**        | **stays trivial** |
 
-"Sobol minimises the dual lattice; DN1 destroys it."
+"Sobol minimises the dual lattice; DN1 eliminates it."
 
 **Comparison with FractalNetKinetic.** FractalNetKinetic uses generator C_m = T (lower-triangular, det = -1). By the T-Rank Lemma (OD-27 §3), T's submatrix structure gives full rank, so its base-block dual is also {0}. However, at multi-depth M > 1, the T-matrix net accumulates a nontrivial dual lattice from truncation (OD-27 tightness argument). DN1-REC's dual stays {0} at all M because the bijectivity argument applies independently at every depth layer.
 
@@ -944,7 +944,7 @@ in the sense that: (1) strictly more Walsh frequencies are annihilated exactly; 
 
 **(5) Variance optimality.** Exact integration for f ∈ V_n with eff. dim ≤ 4k; exponential decay beyond; minimax optimal over F_{DN1,DN2}; RKHS optimal for kernel K; automatic ANOVA weighting γ_u = (n/B²)^{|u|}. (DNO-COEFF, DNO-VAR-REC, DNO-MINIMAX, DNO-RKHS)
 
-**No classical digital net achieves all five simultaneously:**
+**To our knowledge, no classical digital net achieves all five simultaneously:**
 
 | Property         | FractalNet | FractalNetKinetic+DN2 | Sobol+Owen | DN1-REC+DN2     |
 |------------------|------------|-----------------------|------------|-----------------|
