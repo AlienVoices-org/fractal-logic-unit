@@ -1221,7 +1221,7 @@ DNO-PREFIX — Prefix Discrepancy O(N^{-1/k}) for k≤4 (PROVEN+benchmark)
 
 **DNO-OQ1 (d=4k implementation — theory complete, engineering pending).** DNO-REC-MATRIX proves A^(k) ∈ GL(4k,Z_n) gives OA(n^(4k),4k,n,4k) for all k. Implementation: expose a `depth=k` parameter in `FractalNetOrthogonal`. V16 engineering task; theory proven.
 
-**DNO-OQ2 (Scrambled lower bound).** DNO-ASYM proves D*_N(DN1-REC+DN2) = O((log N)^{4k}/N). Open: is this also a Θ lower bound, or can the scrambled rate be improved beyond O((log N)^{4k}/N)?
+**DNO-OQ2 (Scrambled lower bound).** DNO-ASYM proves D*_N(DN1-REC+DN2) = O((log N)^{4k}/N). Open: is this also a Θ lower bound, or can the scrambled rate be improved beyond O((log N)^{4k}/N)? The optimal asymptotic rate (log N)^d / N is already achieved, so the open question is about the exact constant, not the exponent.
 
 **DNO-OQ3 (Exact constant C_APN^{OA}(4)).** Compute the constant C_APN^{OA}(4) explicitly for n ∈ {5,7,11}. Do the DN1 OA base and DN2 scrambling improvements compound multiplicatively, or does the OA structure modify the character sum mechanism?
 
