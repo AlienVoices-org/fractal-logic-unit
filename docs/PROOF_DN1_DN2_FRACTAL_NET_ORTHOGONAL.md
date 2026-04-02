@@ -194,6 +194,13 @@ else:                  # even n: snake, det=1
     a1=b_r;  a2=(b_r+r_r)%n;  a3=(r_r+b_c)%n;  a4=(b_c+r_c)%n
 coords = [a1-half, a2-half, a3-half, a4-half]  # center to {-(n-1)/2,...,(n-1)/2}
 ```
+
+Remark on Universal Applicability vs. Dual-Engine Design:
+Because det(A_even)=1, the Snake map is a universal bijection valid for all integers n≥2, including odd n. 
+While a minimal implementation could rely exclusively on A_even for all geometries, the dual-engine architecture is intentionally preserved.
+The Lo Shu matrix (A_odd) is dense and cross-coupled (det=4), providing rich diagonal diffusion and preserving the historical Graeco-Latin magic square symmetries.
+The lower-triangular Snake matrix (A_even) is utilized specifically where parity breakdown prevents the Lo Shu application, acting as the structural safety net that natively bridges to binary (n=2) topologies.
+
 ### 2.3  Algebraic Foundations
 
 **Definition.** Invertibility over ℤ_n:
