@@ -45,6 +45,12 @@ from flu.theory.theory_fm_dance import (
     DN1_OA_STRENGTH4,
     DN1_GEN_ALL_ODD,
     DN1_REC_RECURSIVE,
+    DNO_GEN, DNO_COEFF_EVEN, DNO_INV, DNO_REC_MATRIX, DNO_OPT,
+    DNO_P1, DNO_P2, DNO_OPT_FACT, DNO_TVAL_BAL, DNO_TVAL_REC,
+    DNO_TVAL_STABLE, DNO_WALSH_REC, DNO_DUAL, DNO_ANOVA, DNO_COEFF,
+    DNO_VAR, DNO_VAR_REC, DNO_ETK, DNO_WALSH, DNO_ASYM, DNO_SPECTRAL,
+    DNO_OPT_WALSH, DNO_MINIMAX, DNO_RKHS, DNO_FUNC, DNO_SUPERIORITY,
+    DNO_FULL, DNO_PREFIX,
     OD19_LINEAR,
     DELTA_MIN_19,
     DELTA_MIN_31,
@@ -586,6 +592,36 @@ def _build_registry() -> Dict[str, TheoremRecord]:
     reg["DN1-OA"]       = DN1_OA_STRENGTH4        # PROVEN V15.3+
     reg["DN1-GEN"]      = DN1_GEN_ALL_ODD         # PROVEN V15.3.2 (all odd n)
     reg["DN1-REC"]      = DN1_REC_RECURSIVE       # PROVEN V15.3.2 (recursive)
+
+    # V15.3.2 — DNO: Orthogonal Digital Net family (FractalNetOrthogonal)
+    reg["DNO-GEN"]          = DNO_GEN           # Generator invertibility all n≥2
+    reg["DNO-COEFF-EVEN"]   = DNO_COEFF_EVEN    # Even-n snake map OA
+    reg["DNO-INV"]          = DNO_INV           # Inverse oracle O(d)
+    reg["DNO-REC-MATRIX"]   = DNO_REC_MATRIX    # A^(k) tensor power
+    reg["DNO-OPT"]          = DNO_OPT           # Bijectivity → max OA strength
+    reg["DNO-P1"]           = DNO_P1            # Latin preserved under Owen
+    reg["DNO-P2"]           = DNO_P2            # OA preserved per depth
+    reg["DNO-OPT-FACT"]     = DNO_OPT_FACT      # Factorized subgroup O(d)
+    reg["DNO-TVAL-BAL"]     = DNO_TVAL_BAL      # Balanced (0,4k,4k)-net
+    reg["DNO-TVAL-REC"]     = DNO_TVAL_REC      # Full Niederreiter (3M,4kM,4k)-net
+    reg["DNO-TVAL-STABLE"]  = DNO_TVAL_STABLE   # Dimension-stable t_bal=0
+    reg["DNO-WALSH-REC"]    = DNO_WALSH_REC     # Trivial dual at all depths
+    reg["DNO-DUAL"]         = DNO_DUAL          # D*={0}
+    reg["DNO-ANOVA"]        = DNO_ANOVA         # Grid-constant ANOVA exactness
+    reg["DNO-COEFF"]        = DNO_COEFF         # V_n + Walsh-annihilated exact
+    reg["DNO-VAR"]          = DNO_VAR           # DN1+DN2 variance bound
+    reg["DNO-VAR-REC"]      = DNO_VAR_REC       # Ultimate variance for DN1-REC+DN2
+    reg["DNO-ETK"]          = DNO_ETK           # ETK discrepancy constant
+    reg["DNO-WALSH"]        = DNO_WALSH         # Walsh-tight discrepancy
+    reg["DNO-ASYM"]         = DNO_ASYM          # Tight asymptotic rate
+    reg["DNO-SPECTRAL"]     = DNO_SPECTRAL      # Hard cutoff + exp decay spectrum
+    reg["DNO-OPT-WALSH"]    = DNO_OPT_WALSH     # Walsh-space Pareto optimality
+    reg["DNO-MINIMAX"]      = DNO_MINIMAX       # Minimax optimal
+    reg["DNO-RKHS"]         = DNO_RKHS          # RKHS automatic ANOVA weighting
+    reg["DNO-FUNC"]         = DNO_FUNC          # Exact integration class
+    reg["DNO-SUPERIORITY"]  = DNO_SUPERIORITY   # Strict spectral dominance
+    reg["DNO-FULL"]         = DNO_FULL          # Five simultaneous optimalities
+    reg["DNO-PREFIX"]       = DNO_PREFIX        # Prefix discrepancy O(N^{-1/k})
     reg["OD-19-LINEAR"] = OD19_LINEAR            # PROVEN V15.3+
     reg["OD-16"]       = DELTA_MIN_19
     reg["OD-17"]       = DELTA_MIN_31
@@ -759,6 +795,35 @@ _PROOF_STATUS_MAP: Dict[str, str] = {
     "DN1-OA":       "algebraic_and_computational",  # PROVEN: OA strength-4 certificate (17 tests)
     "DN1-GEN":      "algebraic_and_computational",  # PROVEN: det=4, gcd(4,n)=1 for all odd n
     "DN1-REC":      "algebraic_and_computational",  # PROVEN: recursive strength doubling, k=2 verified
+    # V15.3.2 — DNO: Orthogonal Digital Net family
+    "DNO-GEN":          "algebraic_and_computational",
+    "DNO-COEFF-EVEN":   "algebraic_and_computational",
+    "DNO-INV":          "algebraic_and_computational",
+    "DNO-REC-MATRIX":   "algebraic_and_computational",
+    "DNO-OPT":          "algebraic",
+    "DNO-P1":           "algebraic",
+    "DNO-P2":           "algebraic_and_computational",
+    "DNO-OPT-FACT":     "algebraic",
+    "DNO-TVAL-BAL":     "algebraic_and_computational",
+    "DNO-TVAL-REC":     "algebraic_and_computational",
+    "DNO-TVAL-STABLE":  "algebraic",
+    "DNO-WALSH-REC":    "algebraic",
+    "DNO-DUAL":         "algebraic",
+    "DNO-ANOVA":        "algebraic",
+    "DNO-COEFF":        "algebraic_and_computational",
+    "DNO-VAR":          "algebraic",
+    "DNO-VAR-REC":      "algebraic",
+    "DNO-ETK":          "algebraic_and_computational",
+    "DNO-WALSH":        "algebraic",
+    "DNO-ASYM":         "algebraic",
+    "DNO-SPECTRAL":     "algebraic_and_computational",
+    "DNO-OPT-WALSH":    "algebraic",
+    "DNO-MINIMAX":      "algebraic",
+    "DNO-RKHS":         "algebraic",
+    "DNO-FUNC":         "algebraic",
+    "DNO-SUPERIORITY":  "algebraic",
+    "DNO-FULL":         "algebraic_and_computational",
+    "DNO-PREFIX":       "algebraic_and_computational",
     "OD-19-LINEAR": "algebraic_and_computational",  # PROVEN: linear-digit uniqueness, 7-step proof
     "T8b":          "algebraic_and_computational",  # updated: OD-19 open part now closed by OD-19-LINEAR
 }
