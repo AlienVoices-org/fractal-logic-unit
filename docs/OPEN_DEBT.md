@@ -1,6 +1,6 @@
 # FLU — Open Debt Registry
 
-**Status as of V15.3.2 (2026-03-28). DN1 PROVEN. Registry: 71 PROVEN · 75 total · 2 open.**
+**Status as of V15.3.2 (2026-03-31). DN1+DNO PROVEN. Registry: 99 PROVEN · 103 total · 2 open conjectures.**
 
 ---
 
@@ -59,6 +59,36 @@ Specific Issues can be added here:
 ---
 
 ## 2. Theorem Registry Integration Debt
+
+### DNO-OQ1 — d=4k Implementation (FractalNetOrthogonal `depth` parameter)
+
+**Status:** 🟡 PARTIAL (theory PROVEN, engineering pending)
+
+**Statement:** DNO-REC-MATRIX proves A^(k) ∈ GL(4k,Z_n) → OA(n^(4k),4k,n,4k) for all k.
+Implementation: expose a `depth=k` parameter in `FractalNetOrthogonal` that builds the
+base_block at level k (recursively applying the DN1-GL formulas k times).
+
+**Current state:** d=4 (k=1) fully implemented. d=8 via SparseOrthogonalManifold (oracle mode).
+`FractalNetOrthogonal(n=3, depth=2)` for native d=8 is the V16 engineering target.
+
+---
+
+### DNO-OQ2 — Scrambled Discrepancy Lower Bound
+
+**Status:** 🔵 RESEARCH
+
+**Statement:** DNO-ASYM proves D*_N(DN1-REC+DN2) = O((log N)^{4k}/N). Open question:
+is this also a Θ lower bound, or can the scrambled rate be improved beyond O((log N)^{4k}/N)?
+
+---
+
+### DNO-OQ3 — Explicit Constant C_APN^{OA}(4)
+
+**Status:** 🔵 RESEARCH
+
+**Statement:** Compute the constant C_APN^{OA}(4) explicitly for n ∈ {5,7,11}. Do the DN1
+OA base and DN2 scrambling improvements compound multiplicatively, or does the OA structure
+modify the character sum mechanism?
 
 ---
 
@@ -140,7 +170,7 @@ Close path: `InvarianceFacet` entropy measurement on both sides.
 The empirical rate ~3.2% for n=19, n=31 (δ=3 best) suggests a density argument.
 Connection to algebraic geometry over finite fields (Weil bounds, character sums).
 
-### NEW-1 — Generator Matrix Parameterisation Theorem
+### NEW-1 — Generator Matrix Parameterisation Theorem (partially addressed by DNO-FULL)
 
 **Statement (candidate):** Every linear digital sequence over Z_n^D can be expressed
 as σ(M·a(k)) for M ∈ GL(d, Z_n) and bijection σ: Z_n → Z_n. Discrepancy class, Latin
