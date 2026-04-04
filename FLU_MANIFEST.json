@@ -1,13 +1,13 @@
 {
   "$schema": "srp-package-contract/v2.0#unified-manifest",
-  "$comment": "CLEAN MANIFEST: V15.3.1 / New Theorems and Debt (2026-03-27).",
+  "$comment": "CLEAN MANIFEST: V15.3.2 / DNO Orthogonal Net Family (2026-03-31).",
   "generated": "2026-03-27",
   "version": "15.3.2",
-  "last_updated": "2026-03-28",
+  "last_updated": "2026-03-31",
   "package": {
     "name": "flu-math",
     "full_name": "Fractal Logic Unit — Phased Fractal Number Theory",
-    "version": "15.3.1",
+    "version": "15.3.2",
     "language": "Python 3.10+",
     "license": "MIT (Sovereign Peerage)",
     "install": "pip install -e .",
@@ -98,12 +98,30 @@
       "dn1_fully_proven": "DN1 PROVEN: LoShu Sudoku Graeco-Latin embedding yields OA(81, 4, 3, 4) and (0,4,4)-net.",
       "od19_linear_proven": "OD-19-LINEAR PROVEN: Linear Magic Hyperprism Uniqueness proven for 246 orbits (D=3).",
       "t8b_uniqueness_closed": "T8b UPDATED: The OD-19 open part is now formally CLOSED by OD-19-LINEAR. FM-Dance is proven as the unique H_D-orbit."
+    },
+    "v15_3_2": {
+      "fractal_net_orthogonal": "FractalNetOrthogonal added to flu.core.fractal_net. OA(n⁴,4,n,4) base for all n≥3 odd. FLU-Owen APN scrambling preserves OA per depth. 28 new DNO sub-theorems (DNO-GEN through DNO-PREFIX), all PROVEN.",
+      "sparse_orthogonal_manifold": "SparseOrthogonalManifold added to flu.container.sparse. O(d) memory-free oracle for DN1-REC OA(n^(4k),4k,n,4k). Works for all n≥2 (odd: Lo Shu det=4; even: snake det=1). Dimension communion via __add__.",
+      "even_n_oa": "DNO-COEFF-EVEN PROVEN: snake map A_even (det=1) extends DN1 construction to all even n≥2 including n=2 (differential Gray code on 4 bits, OA(16,4,2,4)).",
+      "inverse_oracle": "DNO-INV PROVEN: O(d) bi-directional rank ↔ coordinates mapping for all n≥2. 0 errors for n∈{2,3,4,5,6,7}.",
+      "dno_spectral": "DNO-SPECTRAL PROVEN: hard cutoff at μ(h)=0 (DN1) + exponential decay at μ(h)≥1 (DN2). First digital net with deterministic spectral hole + stochastic exponential damping.",
+      "dno_asym": "DNO-ASYM PROVEN: tight rate Θ(N^{-1+3/(4k)}·(log N)^{4k-1}). DN1-REC IMPROVES with dimension k (opposite of Sobol). After DN2: O((log N)^{4k}/N), constant (B/√n)^{4k} better.",
+      "dno_full": "DNO-FULL PROVEN: five simultaneous optimalities (linear, combinatorial, spectral, algorithmic, variance). No classical net achieves all five.",
+      "registry": "Registry grows from 75 to 103 entries (99 PROVEN). 28 new DNO theorems.",
+      "tests": "854 PASSED / 0 FAILED (63 new tests for SparseOrthogonalManifold)",
+      "new_files": [
+        "src/flu/core/fractal_net.py (FractalNetOrthogonal added)",
+        "src/flu/container/sparse.py (SparseOrthogonalManifold added)",
+        "tests/test_core/test_fractal_net_orthogonal.py",
+        "tests/test_core/test_sparse_orthogonal.py",
+        "docs/PROOF_DN1_DN2_FRACTAL_NET_ORTHOGONAL.md"
+      ]
     }
   },
   "theorem_registry": {
-    "summary": "69 PROVEN · 0 PARTIAL · 2 CONJECTURE · 1 DISPROVEN_SCOPED · 1 RETIRED",
-    "total_entries": 73,
-    "proven_count": 69,
+    "summary": "99 PROVEN · 0 PARTIAL · 2 CONJECTURE · 1 DISPROVEN_SCOPED · 1 RETIRED",
+    "total_entries": 103,
+    "proven_count": 99,
     "partial_count": 0,
     "conjecture_count": 2,
     "disproven_scoped_count": 1,
@@ -177,7 +195,37 @@
       "TORUS_DIAM",
       "TSP-1",
       "UNIF-1",
-      "YM-1"
+      "YM-1",
+      "DN1-GEN",
+      "DN1-REC",
+      "DNO-GEN",
+      "DNO-COEFF-EVEN",
+      "DNO-INV",
+      "DNO-REC-MATRIX",
+      "DNO-OPT",
+      "DNO-P1",
+      "DNO-P2",
+      "DNO-OPT-FACT",
+      "DNO-TVAL-BAL",
+      "DNO-TVAL-REC",
+      "DNO-TVAL-STABLE",
+      "DNO-WALSH-REC",
+      "DNO-DUAL",
+      "DNO-ANOVA",
+      "DNO-COEFF",
+      "DNO-VAR",
+      "DNO-VAR-REC",
+      "DNO-ETK",
+      "DNO-WALSH",
+      "DNO-ASYM",
+      "DNO-SPECTRAL",
+      "DNO-OPT-WALSH",
+      "DNO-MINIMAX",
+      "DNO-RKHS",
+      "DNO-FUNC",
+      "DNO-SUPERIORITY",
+      "DNO-FULL",
+      "DNO-PREFIX"
     ],
     "disproven_scoped_ids": [
       "C2"
@@ -389,11 +437,13 @@
     "qmc": {
       "FractalNet(n, d)": "OD-27 quasi-Monte Carlo digital net via FM-Dance radical inverse. (T9, DN2 PROVEN)",
       "FractalNet.generate(num_points)": "Points in [0,1)^d with Latin balance at every power-of-n prefix.",
-      "FractalNet.generate_scrambled(num_points, seed_rank=0)": "APN digit-scrambled net (DN2 PROVEN)."
+      "FractalNet.generate_scrambled(num_points, seed_rank=0)": "APN digit-scrambled net (DN2 PROVEN).",
+      "FractalNetOrthogonal(n)": "DN1 OA(n⁴,4,n,4) orthogonal digital net. generate(N): Graeco-Latin prefix ordering (10.2× better L2* at N=n² vs FractalNet). generate_scrambled(N): FLU-Owen APN scrambling. All odd n≥3. (DNO-FULL PROVEN)"
     },
     "holographic": {
       "ScarStore(n, d)": "Holographic sparse memory. (HM-1 PROVEN)",
-      "SparseCommunionManifold(n, seeds)": "O(D)-memory infinite-scale oracle. [L2, L3]"
+      "SparseCommunionManifold(n, seeds)": "O(D)-memory infinite-scale oracle. [L2, L3]",
+      "SparseOrthogonalManifold(n, d)": "O(D) memory-free oracle for DN1-REC OA(n^(4k),4k,n,4k). Works for all n≥2, d=4k. Odd n: Lo Shu map. Even n: snake map. cell_at_oa_rank(k), verify_oa(), dimension communion via +. (DNO-REC-MATRIX PROVEN)"
     },
     "seeds": {
       "unrank_optimal_seed(k, n, signed=True)": "Returns k-th APN/PN seed. Zero-compute for n ≡ 2 mod 3. [PFNT-4, OD-16-PM, OD-17-PM]",
@@ -449,6 +499,31 @@
       "id": "DEC-1",
       "item": "ScarStore Coset Decomposition",
       "closed_in": "V15.1.2"
+    },
+    {
+      "id": "DNO",
+      "item": "FractalNetOrthogonal: 28 DNO sub-theorems (GEN through PREFIX)",
+      "closed_in": "V15.3.2"
+    },
+    {
+      "id": "DNO-OQ4",
+      "item": "Walsh dual net structure — D*={0} at all depths (DNO-DUAL)",
+      "closed_in": "V15.3.2"
+    },
+    {
+      "id": "DNO-OQ5",
+      "item": "Even-n OA — snake map for all n≥2 (DNO-COEFF-EVEN)",
+      "closed_in": "V15.3.2"
+    },
+    {
+      "id": "DN1-GEN",
+      "item": "DN1-GEN PROVEN for all odd n (det=4, gcd(4,n)=1)",
+      "closed_in": "V15.3.2"
+    },
+    {
+      "id": "DN1-REC",
+      "item": "DN1-REC PROVEN for n=3, k=2: OA(3⁸,8,3,8) verified",
+      "closed_in": "V15.3.2"
     }
   ],
   "open_debt": [
