@@ -55,7 +55,10 @@ USAGE EXAMPLE
 >>> report = facet.audit_t9(N=729)
 >>> comparison = FractalNetCorputFacet.compare_with_kinetic(n=3, d=4, N=729)
 
-V15 — T9 algebraic resolution sprint.
+V15   — T9 algebraic resolution sprint.
+V15.3.2 — FractalNetOrthogonalFacet added (DNO-FULL V15.3.2 PROVEN).
+         generate_vhdl_dno / export_vhdl_dno in flu.core.vhdl_gen.
+         bench_dno_orthogonal.py: integration error, prefix sweep, asymptotic rate.
 """
 
 from __future__ import annotations
@@ -492,4 +495,239 @@ class FractalNetKineticFacet(FluFacet):
             f"the Faure-class discrepancy bound O((log N)^d / N) up to a constant factor. "
             f"The Pascal connection was identified in the V15 T9 algebraic resolution "
             f"(see docs/THEOREMS.md, T9)."
+        )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FractalNetOrthogonalFacet — DN1-REC + DN2 (DNO-FULL PROVEN V15.3.2)
+# ─────────────────────────────────────────────────────────────────────────────
+
+class FractalNetOrthogonalFacet(FluFacet):
+    """
+    DN1-REC orthogonal digital net — A ∈ GL(4,Z_n) OA(n⁴,4,n,4) base
+    structure with FLU-Owen APN scrambling (DNO-FULL PROVEN V15.3.2).
+
+    Generator C_m = A (DN1 Lo Shu map for odd n; snake map for even n).
+    The block-diagonal direct sum A^(k) = A ⊕ ... ⊕ A gives
+    OA(n^(4k), 4k, n, 4k) at every recursive level.
+
+    STATUS: PROVEN (DNO-FULL, V15.3.2)
+
+    Five simultaneous optimalities:
+      (1) Linear    — A^(k) ∈ GL(4k,Z_n), OA strength 4k for all k,n.
+      (2) Combin.   — t_bal = 0, dimension-stable (DNO-TVAL-STABLE).
+      (3) Spectral  — D*={0}, hard cutoff + exp decay (DNO-SPECTRAL).
+      (4) Algorith. — O(d) generation, O(n⁴·d) memory (DNO-OPT-FACT).
+      (5) Variance  — exact V_n integration, minimax + RKHS optimal.
+
+    Parameters
+    ----------
+    n : int  Radix ≥ 3 (odd n only for FractalNetOrthogonal; even n via
+             SparseOrthogonalManifold).
+    d : int  Dimension = 4 (base block). For d=8 use depth=2 oracle.
+
+    Examples
+    --------
+    >>> f = FractalNetOrthogonalFacet(n=3, d=4)
+    >>> pts = f.generate(81)
+    >>> pts_s = f.generate_scrambled(81)
+    >>> report = f.audit_dno(N=81)
+    >>> report["oa_strength"]   # should be 4
+    """
+
+    def __init__(self, n: int, d: int = 4) -> None:
+        super().__init__(
+            name="FractalNetOrthogonalFacet",
+            theorem_id="DNO-FULL",
+            status="PROVEN",
+            description=(
+                "DN1-REC OA(n^(4k),4k,n,4k) digital net with FLU-Owen APN scrambling. "
+                "Generator A ∈ GL(4,Z_n): det=4 (odd n, Lo Shu), det=1 (even n, snake). "
+                "Five simultaneous optimalities: linear, combinatorial, spectral, "
+                "algorithmic, variance (DNO-FULL V15.3.2). Hard cutoff + exp decay "
+                "Walsh spectrum (DNO-SPECTRAL). D*={0} trivial dual (DNO-DUAL). "
+                "Exact integration: V_n functions and Walsh-annihilated functions (DNO-COEFF)."
+            ),
+        )
+        if n < 2:
+            raise ValueError(f"FractalNetOrthogonalFacet requires n ≥ 2 (got {n})")
+        if d < 1 or d % 4 != 0:
+            raise ValueError(f"d must be a positive multiple of 4 (got {d})")
+        self.n = n
+        self.d = d
+        self._net = self._build_net()
+
+    def _build_net(self):
+        from flu.core.fractal_net import FractalNetOrthogonal
+        return FractalNetOrthogonal(self.n)
+
+    # ── Generation ───────────────────────────────────────────────────────────
+
+    def generate(self, num_points: int) -> np.ndarray:
+        """
+        Generate `num_points` in [0,1)^d using DN1 OA Graeco-Latin ordering.
+
+        Points at N = n^j (j ≤ 4) form j complete Latin rows — perfectly
+        balanced in all 4 dimensions simultaneously (DNO-TVAL-BAL).
+        """
+        return self._net.generate(num_points)
+
+    def generate_scrambled(self, num_points: int, seed_rank: int = 0) -> np.ndarray:
+        """
+        DN1 + DN2: FLU-Owen APN scrambled orthogonal net.
+
+        Preserves OA(n⁴,4,n,4) per depth (DNO-P2).
+        Achieves D*_N ≤ C_classic·(B/√n)⁴·(log N)⁴/N (DNO-ETK).
+        Hard cutoff + exponential decay Walsh spectrum (DNO-SPECTRAL).
+        """
+        return self._net.generate_scrambled(num_points, seed_rank=seed_rank)
+
+    # ── Metrics ──────────────────────────────────────────────────────────────
+
+    def l2_discrepancy(self, pts: Optional[np.ndarray] = None, N: int = 81) -> float:
+        if pts is None:
+            pts = self.generate(N)
+        return _warnock_l2(pts)
+
+    def fft_peak(self, pts: Optional[np.ndarray] = None, N: int = 81) -> float:
+        if pts is None:
+            pts = self.generate(N)
+        return _fft_peak(pts)
+
+    def dual_lattice_score(self, pts: Optional[np.ndarray] = None,
+                           N: int = 81) -> tuple:
+        if pts is None:
+            pts = self.generate(N)
+        return _dual_score(pts)
+
+    def integration_error(
+        self,
+        f=None,
+        true_val: float = 0.0,
+        pts: Optional[np.ndarray] = None,
+        N: int = 81,
+        scrambled: bool = True,
+    ) -> float:
+        """
+        Integration error |mean(f(pts)) - true_val|.
+
+        Default integrand: f(x) = ∏cos(2πxᵢ), true integral = 0.
+        This function's Walsh support is entirely in the μ(h)=0
+        annihilated subspace — expected error ≈ machine epsilon (DNO-COEFF).
+        """
+        if pts is None:
+            pts = self.generate_scrambled(N) if scrambled else self.generate(N)
+        if f is None:
+            f = lambda x: np.prod(np.cos(2 * np.pi * x), axis=-1)
+        vals = f(pts)
+        return abs(float(np.mean(vals)) - true_val)
+
+    # ── DNO audit ────────────────────────────────────────────────────────────
+
+    def audit_dno(
+        self,
+        N: Optional[int] = None,
+        also_walsh: bool = True,
+        also_integration: bool = True,
+    ) -> dict:
+        """
+        Computational proof sketch for DNO-FULL.
+
+        Verifies numerically:
+          1. OA(n⁴,4,n,4) property — all n⁴ 4-tuples unique (DNO-OPT).
+          2. Dual lattice score ≈ 0 — P_hat(h) ≈ 0 for all h≠0 (DNO-DUAL).
+          3. Walsh annihilation — integration error ≈ machine epsilon (DNO-COEFF).
+          4. Prefix discrepancy advantage — DNO-PREFIX.
+
+        Returns a dict with all proof evidence fields.
+        """
+        n, d = self.n, self.d
+        base_N = n ** d
+        if N is None:
+            N = base_N
+
+        result = {
+            "n": n, "d": d, "N": N, "theorem_id": "DNO-FULL",
+        }
+
+        # 1. OA property
+        pts_plain = self.generate(base_N)
+        tuples = set(map(tuple, np.round(pts_plain * n).astype(int) % n))
+        result["oa_unique_tuples"] = len(tuples)
+        result["oa_expected"] = base_N
+        result["oa_strength"] = d if len(tuples) == base_N else 0
+        result["oa_verified"] = len(tuples) == base_N
+
+        # 2. L2* discrepancy: plain vs scrambled
+        pts_scrambled = self.generate_scrambled(N)
+        result["l2star_plain"] = round(_warnock_l2(pts_plain[:N]), 6)
+        result["l2star_scrambled"] = round(_warnock_l2(pts_scrambled), 6)
+
+        # 3. Dual lattice score (should be near 0 for D*={0})
+        _, dual_score_plain = _dual_score(pts_plain[:N])
+        _, dual_score_scram = _dual_score(pts_scrambled)
+        result["dual_score_plain"] = round(dual_score_plain, 6)
+        result["dual_score_scrambled"] = round(dual_score_scram, 6)
+        result["dual_trivial"] = dual_score_plain < 1e-6
+
+        # 4. Walsh annihilation (integration error)
+        if also_integration:
+            err_plain = self.integration_error(pts=pts_plain[:N], scrambled=False)
+            err_scram = self.integration_error(pts=pts_scrambled, scrambled=True)
+            result["integration_error_plain"] = float(err_plain)
+            result["integration_error_scrambled"] = float(err_scram)
+            result["walsh_annihilation_confirmed"] = err_plain < 1e-10
+
+        # 5. Prefix discrepancy advantage
+        prefix_sizes = [n, n**2, n**3, n**4]
+        prefix_l2 = []
+        for ps in prefix_sizes:
+            if ps <= base_N:
+                prefix_l2.append(round(_warnock_l2(pts_plain[:ps]), 6))
+        result["prefix_l2_at_n_j"] = prefix_l2
+        result["prefix_sizes"] = [ps for ps in prefix_sizes if ps <= base_N]
+
+        return result
+
+    # ── Generator matrix ─────────────────────────────────────────────────────
+
+    def reconstruct_A_matrix(self) -> np.ndarray:
+        """
+        Return the DN1 generator matrix A ∈ GL(4,Z_n).
+
+        Odd n: Lo Shu map (det=4, gcd(4,n)=1).
+        Even n: snake map (det=1).
+        """
+        n = self.n
+        if n % 2 != 0:
+            # Lo Shu: a = [r_r-b_c, b_r+r_c, b_r+2r_c, 2r_r+2b_c]
+            # rows in (b_r, r_r, b_c, r_c) basis
+            return np.array([
+                [0,  1, -1,  0],
+                [1,  0,  0,  1],
+                [1,  0,  0,  2],
+                [0,  2,  2,  0],
+            ], dtype=int) % n
+        else:
+            # Snake: lower-triangular, det=1
+            return np.array([
+                [1,  0,  0,  0],
+                [1,  1,  0,  0],
+                [0,  1,  1,  0],
+                [0,  0,  1,  1],
+            ], dtype=int) % n
+
+    def dno_summary(self) -> str:
+        """Returns a human-readable DNO theorem attribution note."""
+        n, d = self.n, self.d
+        is_odd = n % 2 != 0
+        gen_type = f"Lo Shu (det=4, gcd(4,{n})=1)" if is_odd else f"Snake (det=1)"
+        return (
+            f"FractalNetOrthogonalFacet(n={n}, d={d})\n"
+            f"  Generator: A ∈ GL({d},Z_{n}), {gen_type}\n"
+            f"  OA class : OA({n}^{d},{d},{n},{d}) [DNO-OPT PROVEN]\n"
+            f"  Dual net : D* = {{0}} (trivial) [DNO-DUAL PROVEN]\n"
+            f"  Spectrum : hard cutoff μ=0 + exp decay μ≥1 [DNO-SPECTRAL PROVEN]\n"
+            f"  Variance : exact for V_n (|u|≤{d}) + exp beyond [DNO-VAR-REC PROVEN]\n"
+            f"  Theorem  : DNO-FULL V15.3.2 — five simultaneous optimalities\n"
         )
