@@ -108,6 +108,7 @@ from flu.core.fractal_net      import FractalNet, FractalNetKinetic, FractalNetO
 from flu.interfaces.digital_net import (
     FractalNetCorputFacet,    # FMD-NET PROVEN — van der Corput facet (researcher interface)
     FractalNetKineticFacet,   # T9 PROVEN      — kinetic digital net facet (researcher interface)
+    FractalNetOrthogonalFacet,# DNO-REC PROVEN — orthogonal digital net facet (researcher interface)
 )
 from flu.theory.theory_spectral import (
     spectral_dispersion_bound, SpectralDispersionBound,
@@ -215,7 +216,7 @@ __all__ = [
     # QMC & Nets
     "FractalNet", "FractalNetKinetic",
     # Sparse & Arithmetic
-    "ScarStore", "SparseCommunionManifold", "SparseArithmeticManifold", "SparseEvenManifold", "ForeignField",
+    "ScarStore", "SparseCommunionManifold", "SparseArithmeticManifold", "SparseEvenManifold", "SparseOrthogonalManifold", "ForeignField",
     # Logic & Theory
     "get_theorem", "status_report", "FLUOperator",
     # Namespaces
