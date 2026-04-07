@@ -23,6 +23,7 @@ DesignFacet               — T3       DESIGN_INTENT  Latin hypercube experiment
 NeuralFacet               — PFNT-2   DESIGN_INTENT  bias-free neural weight initialisation
 FractalNetCorputFacet     — FMD-NET  PROVEN         van der Corput digital net (C_m=I, control)
 FractalNetKineticFacet    — T9       PROVEN         FM-Dance kinetic digital net (C_m=T, Faure family)
+FractalNetOrthogonalFacet — DNO-REC  PROVEN         DNO-REC recursive orthogonal array
 
 V15 — audit integration sprint.
 V15.1.2 — DEC-1 PROVEN (ScarStore coset decomposition via Künneth + HM-1).
@@ -42,7 +43,7 @@ from flu.interfaces.cohomology import CohomologyFacet
 from flu.interfaces.gray_code import GrayCodeFacet, binary_gray_encode, binary_gray_decode
 from flu.interfaces.design import DesignFacet
 from flu.interfaces.neural import NeuralFacet
-from flu.interfaces.digital_net import FractalNetCorputFacet, FractalNetKineticFacet
+from flu.interfaces.digital_net import FractalNetCorputFacet, FractalNetKineticFacet, FractalNetOrthogonalFacet
 
 __all__ = [
     "FluFacet",
@@ -64,4 +65,5 @@ __all__ = [
     "NeuralFacet",
     "FractalNetCorputFacet",
     "FractalNetKineticFacet",
+    "FractalNetOrthogonalFacet",
 ]
