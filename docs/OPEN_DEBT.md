@@ -1,6 +1,7 @@
 # FLU — Open Debt Registry
 
 **Status as of V15.3.2 (2026-03-31). DN1+DNO PROVEN. Registry: 99 PROVEN · 103 total · 2 open conjectures.**
+**Implementation debt: DNO-OQ1 (FractalNetOrthogonal depth parameter for k>1).**
 
 ---
 
@@ -44,6 +45,9 @@
 | ✅ UNIF-1 | Spectral Unification of Sum-Separable Arrays | V15.1.4 | DFT linearity + char. orthogonality |
 | ✅ T9 | FM-Dance Digital Sequence (generator matrices C_m = T) | V15.1 | Discrete integral identity |
 | ✅ DEC-1 | ScarStore = coset decomposition C⁰(Z_n^D;Z_n)/SCM | V15.1.2 | Künneth + HM-1 |
+| ✅ DNO-FACET | FractalNetOrthogonalFacet — full researcher API (audit_dno, integration_error, VHDL) | **V15.3.2** | digital_net.py |
+| ✅ DNO-VHDL | generate_vhdl_dno: snake_block + sequential/parallel for all n≥2, k≥1 | **V15.3.2** | vhdl_gen.py |
+| ✅ DNO-BENCH | bench_dno_orthogonal.py: integration error, prefix sweep, asymptotic rate, latest.json | **V15.3.2** | benchmarks/ |
 
 ---
 
@@ -60,7 +64,7 @@ Specific Issues can be added here:
 
 ## 2. Theorem Registry Integration Debt
 
-### DNO-OQ1 — d=4k Implementation (FractalNetOrthogonal `depth` parameter)
+### DNO-OQ1 — FractalNetOrthogonal `depth=k` parameter (k>1 in Python)
 
 **Status:** 🟡 PARTIAL (theory PROVEN, engineering pending)
 
@@ -68,8 +72,13 @@ Specific Issues can be added here:
 Implementation: expose a `depth=k` parameter in `FractalNetOrthogonal` that builds the
 base_block at level k (recursively applying the DN1-GL formulas k times).
 
-**Current state:** d=4 (k=1) fully implemented. d=8 via SparseOrthogonalManifold (oracle mode).
-`FractalNetOrthogonal(n=3, depth=2)` for native d=8 is the V16 engineering target.
+**Current state (V15.3.2):**
+- d=4 (k=1): fully implemented (`FractalNetOrthogonal`)
+- d=8 (k=2): oracle mode via `SparseOrthogonalManifold(n, d=8)` ✓
+- d=8 VHDL: `generate_vhdl_dno(n, k=2, mode='sequential'/'parallel')` ✓
+- d=8 benchmark: `bench_dno_orthogonal.py` Section A/C confirms d=8 machine-epsilon ✓
+- **Remaining gap:** `FractalNetOrthogonal(n=3, depth=2)` Python streaming generator.
+  Theory PROVEN (DNO-REC-MATRIX). Engineering target V16.
 
 ---
 
