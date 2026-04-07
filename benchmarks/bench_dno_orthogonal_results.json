@@ -1,0 +1,172 @@
+{
+  "benchmark": "bench_dno_orthogonal",
+  "version": "15.3.2",
+  "n": 3,
+  "theorems": [
+    "DNO-COEFF",
+    "DNO-PREFIX",
+    "DNO-ASYM",
+    "DNO-SPECTRAL",
+    "DNO-FULL"
+  ],
+  "section_a": {
+    "section": "A_integration_error",
+    "rows": [
+      {
+        "d": 4,
+        "N": 81,
+        "flu_error": 4.112e-18,
+        "sobol_error": 0.006601,
+        "flu_time_ms": 0.2,
+        "machine_epsilon": true,
+        "theorem": "DNO-COEFF_route_B"
+      },
+      {
+        "d": 4,
+        "N": 81,
+        "flu_error": 4.112e-18,
+        "sobol_error": 0.006601,
+        "flu_time_ms": 0.2,
+        "machine_epsilon": true,
+        "theorem": "DNO-COEFF_route_B"
+      },
+      {
+        "d": 8,
+        "N": 81,
+        "flu_error": 4.112e-18,
+        "sobol_error": 0.0087,
+        "flu_time_ms": 0.4,
+        "machine_epsilon": true,
+        "theorem": "DNO-COEFF_route_B"
+      },
+      {
+        "d": 8,
+        "N": 6561,
+        "flu_error": 6.98e-20,
+        "sobol_error": 0.0002154,
+        "flu_time_ms": 39.7,
+        "machine_epsilon": true,
+        "theorem": "DNO-COEFF_route_B"
+      }
+    ]
+  },
+  "section_b": {
+    "section": "B_prefix_sweep",
+    "d": 4,
+    "n": 3,
+    "sizes": [
+      3,
+      9,
+      27,
+      81
+    ],
+    "curves": {
+      "oa_plain": [
+        1.361667,
+        0.050233,
+        0.180054,
+        0.36722
+      ],
+      "oa_scrambled": [
+        0.424254,
+        0.383237,
+        0.530774,
+        0.559786
+      ],
+      "fractalnet": [
+        2.817494,
+        2.011967,
+        1.236069,
+        0.36722
+      ],
+      "fractalnet_kinetic": [
+        0.915885,
+        0.580918,
+        0.082064,
+        0.36722
+      ],
+      "monte_carlo": [
+        0.73799,
+        0.701968,
+        0.955816,
+        0.937248
+      ],
+      "sobol": [
+        0.572458,
+        0.885946,
+        0.927581,
+        0.94081
+      ]
+    },
+    "note": "Warnock capped at N=81 (safe for O(N^2) computation)"
+  },
+  "section_c": {
+    "section": "C_asymptotic_by_k",
+    "n": 3,
+    "rows": [
+      {
+        "k": 1,
+        "d": 4,
+        "theoretical_exponent": -0.25,
+        "data": [
+          {
+            "N": 3,
+            "l2star": 2.077708,
+            "empirical_exponent": null
+          },
+          {
+            "N": 9,
+            "l2star": 0.339924,
+            "empirical_exponent": -1.648
+          },
+          {
+            "N": 27,
+            "l2star": 0.180054,
+            "empirical_exponent": -0.578
+          },
+          {
+            "N": 81,
+            "l2star": 0.36722,
+            "empirical_exponent": 0.649
+          }
+        ]
+      },
+      {
+        "k": 2,
+        "d": 8,
+        "theoretical_exponent": -0.625,
+        "data": [
+          {
+            "N": 3,
+            "l2star": 10.176637,
+            "empirical_exponent": null
+          },
+          {
+            "N": 9,
+            "l2star": 6.462796,
+            "empirical_exponent": -0.413
+          },
+          {
+            "N": 27,
+            "l2star": 6.269376,
+            "empirical_exponent": -0.028
+          },
+          {
+            "N": 81,
+            "l2star": 6.129538,
+            "empirical_exponent": -0.021
+          },
+          {
+            "N": 243,
+            "l2star": 3.682617,
+            "empirical_exponent": -0.464
+          }
+        ]
+      }
+    ]
+  },
+  "section_d": {
+    "section": "D_latest_updated",
+    "updated_rows": 5
+  }
+}
