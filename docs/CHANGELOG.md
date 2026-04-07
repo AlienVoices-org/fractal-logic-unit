@@ -5,6 +5,44 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
   
+## [15.3.2] — 2026-03-31
+
+DNO orthogonal net family complete. FractalNetOrthogonalFacet, generate_vhdl_dno/export_vhdl_dno, bench_dno_orthogonal.py. 28 DNO theorems PROVEN. 891 tests passing.
+
+**Theorems:**
+- DNO-GEN NEW PROVEN
+- DNO-COEFF-EVEN NEW PROVEN
+- DNO-INV NEW PROVEN
+- DNO-REC-MATRIX NEW PROVEN
+- DNO-OPT NEW PROVEN
+- DNO-P1 NEW PROVEN
+- DNO-P2 NEW PROVEN
+- DNO-OPT-FACT NEW PROVEN
+- DNO-TVAL-BAL NEW PROVEN
+- DNO-TVAL-REC NEW PROVEN
+- DNO-TVAL-STABLE NEW PROVEN
+- DNO-WALSH-REC NEW PROVEN
+- DNO-DUAL NEW PROVEN
+- DNO-ANOVA NEW PROVEN
+- DNO-COEFF NEW PROVEN
+- DNO-VAR NEW PROVEN
+- DNO-VAR-REC NEW PROVEN
+- DNO-ETK NEW PROVEN
+- DNO-WALSH NEW PROVEN
+- DNO-ASYM NEW PROVEN
+- DNO-SPECTRAL NEW PROVEN
+- DNO-OPT-WALSH NEW PROVEN
+- DNO-MINIMAX NEW PROVEN
+- DNO-RKHS NEW PROVEN
+- DNO-FUNC NEW PROVEN
+- DNO-SUPERIORITY NEW PROVEN
+- DNO-FULL NEW PROVEN
+- DNO-PREFIX NEW PROVEN
+
+**New files:**
+- `benchmarks/bench_dno_orthogonal.py`
+- `benchmarks/bench_dno_orthogonal_results.json`
+- `tests/test_core/test_sparse_orthogonal.py`
 ## [15.3.2] — 2026-03-28 — DN1 Complete Proof: Lo Shu Sudoku Fractal Digital Net
 
 ## V15.3.2 – DN1-REC Orthogonal Manifold (Major Theoretical Upgrade)
